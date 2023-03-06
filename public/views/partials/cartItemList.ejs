@@ -1,0 +1,80 @@
+<% if (!data._id || data.items.length === 0) {%>
+        <div class="card mx-auto shadow p-3 mb-4 bg-body rounded w-75 text-center">
+            Your Cart is empty right now. Please, keep buying some amazing items!
+        </div>
+        <div class="card mx-auto shadow p-3 mb-4 bg-body rounded w-75 align-items-center my-3" id="emptyCart">
+            <a class="btn btn-primary my-2 w-25" href="/api/auth/index"><i class="fa fa-cart-plus"></i> Keep buying... </a>
+        </div>
+<% } else { %>
+        <br>
+        <div class="card mx-auto shadow p-3 mb-4 bg-body rounded w-75" id="mostrarItemsCarts">
+            <div class="alert alert-primary text-center mx-5" role="alert">
+                <strong> Cart Id# <%= data._id %> </strong> 
+            </div><br>
+            <h5 class="text-center">Cart Items</h5>           
+            <div class="alert alert-secondary ps-5 mx-5" role="alert">
+                <ol class="alert alert-warning">
+                    <% for(let i=0; i < data.items.length; i++) { %>
+                        <li class="alert alert-light ps-5 mx-5">
+                            Product Id: <%= data.items[i].productId %><br>
+                            <strong>Product Details:</strong>    
+                            <img src="<%= arrProducts[i].picture %>" class="img-fluid rounded p-3 position-absolute top-0 end-0" alt="Product Image" width="200px">
+                            <ul>
+                                <li>
+                                    Title: <strong><%= arrProducts[i].name %></strong>
+                                </li>
+                                <li>
+                                    Description: <%= arrProducts[i].description %>
+                                </li>
+                                <li>
+                                    Price(USD): <%= arrProducts[i].price %>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="d-flex align-content-center my-1">
+                                <form action="/api/carts/addQty/<%= data.items[i].productId %>" method="post">
+                                    Qty.: <button type="submit" class="btn btn-primary btn-small mx-1 my-1"><i class="fa fa-plus-square"></i></button>
+                                    <input type="hidden" name="productId" id="productId" value="<%= data.items[i].productId %>"/>
+                                    <input class="text-center" style="border:none" type="text" name="quantity" value="<%= data.items[i].quantity %>" max="" size="1" id="number_<%= data.items[i].productId %>" />
+                                </form>
+                                <input type="hidden" name="stock" id="stock" value="10"/>
+                                <form action="/api/carts/remove/<%= data.items[i].productId %>" method="post">
+                                    <input type="hidden" name="productId" id="productId" value="<%= data.items[i].productId %>"/>
+                                    <input class="text-center" type="hidden" name="quantity" value="<%= data.items[i].quantity %>" max="" size="1" id="number_<%= data.items[i].productId %>" />
+                                    <button type="submit" class="btn btn-danger btn-small mx-1 my-1"><i class="fa fa-minus-square"></i></button>
+                                </form>
+                            </div>
+                            Item Price (USD)<%= data.items[i].price %><br>
+                            <strong> SubTotal Price: (USD)<%= data.items[i].total %></strong><br>
+                            <div class="d-flex justify-content-center">
+                                <form action="/api/carts/deleteItem/<%= data.items[i].productId %>" method="post">
+                                    <input type="hidden" name="productId" id="productId" value="<%= data.items[i].productId %>"/>
+                                    <button type="submit" class="btn btn-danger mx-auto my-2"> <i class="fa fa-trash"></i> </button>
+                                </form>
+                            </div>
+                        </li><br>
+                    <% } %>
+                </ol>
+            </div><br>
+        </div>
+        <br>
+        <div class="card mx-auto shadow p-3 mb-4 bg-body rounded w-75" id="total">
+            <div class="alert alert-danger" role="alert">
+                <strong>Total: (USD) <%= data.subTotal %></strong> for <%= data.items.length %> Product/s. <br>
+                <% let totalQty = 0
+                    for(let i=0; i < data.items.length; i++) {
+                        totalQty= Number(totalQty) + Number.parseInt(data.items[i].quantity)
+                    } %>
+                Total Cart Items quantity: <span> <%= totalQty %> </span>
+            </div><br>
+            <div class="alert alert-secondary" role="alert">
+                Fecha: <%= data.modifiedOn %>
+            </div><br>
+        </div>
+        <br>
+        <div class="card mx-auto shadow p-3 mb-4 bg-body rounded w-75 align-items-center" id="emptyCart">
+            <a class="btn btn-primary my-2 w-25" href="/api/auth/index"><i class="fa fa-cart-plus"></i> Keep buying... </a>
+            <a class="btn btn-success my-2 w-25" href="/api/carts/genOrder/<%= data._id %>"><i class="fa fa-check-circle-o"></i> Generate Order </a>
+            <a class="btn btn-danger my-2 w-25" href="/api/carts/empty-cart/<%= data._id %>"><i class="fa fa-times"></i> Empty Cart </a>
+        </div>
+<% } %>

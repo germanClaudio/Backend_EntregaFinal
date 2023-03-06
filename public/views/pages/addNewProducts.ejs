@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <%- include('../partials/header'); %>
+
+    <%- include('../partials/userBanner'); %>
+    <br>
+    <h3 class="d-block mx-auto my-2 text-center">Load your Products</h3>
+            <%- include('../partials/formulario'); %>
+            <br>
+            <div class="d-block mx-auto my-4 pb-5 text-center">
+                <a class="btn btn-primary my-2" href="/api/auth/index"><i class="fa fa-home" aria-hidden="true"></i> Back to Home </a>
+            </div>
+            <h2 class="d-block mx-auto my-3 text-center">Product List</h2>
+            <div class="d-block mx-auto px-5 mb-3 text-center w-100">
+            <%- include('../partials/dataProductTable'); %>
+            <footer>
+                <%- include('../partials/footer'); %>
+            </footer>
+<!--    scripts     -->
+<script type="text/javascript" src="../../../historial.js"></script>
+
+</body>
+
+</html>

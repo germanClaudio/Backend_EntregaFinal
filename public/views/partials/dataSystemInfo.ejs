@@ -1,0 +1,59 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col-12 w-75 mx-auto my-4" id="">
+    <div class="alert alert-dark my-2" role="alert">
+      <strong>Host:</strong> <%= infoSystem[1].host %>
+    </div>
+    <div class="alert alert-primary my-2" role="alert">
+      <strong>Direction:</strong> <%= infoSystem[2].direc %>
+    </div>
+    <div class="alert alert-dark my-2" role="alert">
+      <strong>Id Process:</strong> <%= infoSystem[3].idProcess %>
+    </div>
+    <div class="alert alert-secondary my-2" role="alert">
+      <strong>NodeVersion:</strong>
+      <ul>
+        <li>Node: <%= infoSystem[4].nodeVersion[0].data.node %></li>
+        <li>v8: <%= infoSystem[4].nodeVersion[0].data.v8 %></li>
+        <li>uv: <%= infoSystem[4].nodeVersion[0].data.uv %></li>
+        <li>zlib: <%= infoSystem[4].nodeVersion[0].data.zlib %></li>
+        <li>brotli: <%= infoSystem[4].nodeVersion[0].data.brotli %></li>
+        <li>ares: <%= infoSystem[4].nodeVersion[0].data.ares %></li>
+        <li>modules: <%= infoSystem[4].nodeVersion[0].data.modules %></li>
+        <li>nghttp2: <%= infoSystem[4].nodeVersion[0].data.nghttp2 %></li>
+        <li>napi: <%= infoSystem[4].nodeVersion[0].data.napi %></li>
+        <li>llhttp: <%= infoSystem[4].nodeVersion[0].data.llhttp %></li>
+        <li>openssl: <%= infoSystem[4].nodeVersion[0].data.openssl %></li>
+        <li>cldr: <%= infoSystem[4].nodeVersion[0].data.cldr %></li>
+        <li>icu: <%= infoSystem[4].nodeVersion[0].data.icu %></li>
+        <li>tz: <%= infoSystem[4].nodeVersion[0].data.tz %></li>
+        <li>unicode: <%= infoSystem[4].nodeVersion[0].data.unicode %></li>
+        <li>ngtcp2: <%= infoSystem[4].nodeVersion[0].data.ngtcp2 %></li>
+        <li>nghttp3: <%= infoSystem[4].nodeVersion[0].data.nghttp3 %></li>
+      </ul>
+    </div>
+    <div class="alert alert-dark my-2" role="alert">
+      <strong>Title:</strong> <%= infoSystem[5].title %>
+    </div>
+    <div class="alert alert-success my-2" role="alert">
+      <strong>Operative System:</strong> <%= infoSystem[6].os %>
+    </div>
+    <div class="alert alert-warning my-2" role="alert">
+      <strong>Memory Use:</strong>
+      <ul>
+        <li>rss: <%= infoSystem[7].memoryUse[0].data.rss %></li>
+        <li>heapTotal: <%= infoSystem[7].memoryUse[0].data.heapTotal %></li>
+        <li>heapUsed: <%= infoSystem[7].memoryUse[0].data.heapUsed %></li>
+        <li>external: <%= infoSystem[7].memoryUse[0].data.external %></li>
+        <li>
+          arrayBuffers: <%= infoSystem[7].memoryUse[0].data.arrayBuffers %>
+        </li>
+      </ul>
+    </div>
+    <div class="alert alert-secondary my-2" role="alert">
+      <strong>Path:</strong> <%= infoSystem[8].ruta %>
+    </div>
+    <div class="alert alert-dark my-2" role="alert">
+      <strong>Port:</strong> <%= infoSystem[9].port %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<% if (userInfo.name) { %>
+<div class="d-block mx-auto my-5 w-100 text-center alert alert-success h5" style="padding-top: 50px;"
+        role="alert" id="mostrarUserName">
+        Usuario <%= userInfo.name %>, <%= userInfo.lastName %>
+        <img class="img-fluid rounded-circle float-end me-5 mt-0" alt="Avatar not found" src="<%= userInfo.avatar %>" width="70px" height="70px">
+</div>
+<% } else { %>
+        <div class="d-block mx-auto my-5 w-100 text-center alert alert-success h5" style="padding-top: 50px;"
+        role="alert">
+        Sorry, you're not logged in any more....
+        <img class="img-fluid rounded-circle float-end me-5 mt-0" alt="Avatar not found" src="https://www.shutterstock.com/image-vector/dead-emoji-face-flat-style-260nw-1655058412.jpg" width="70px" height="70px">
+</div>
+<% } %>

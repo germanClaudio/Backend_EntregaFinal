@@ -1,0 +1,33 @@
+<header>
+  <nav class="navbar fixed-top navbar-dark bg-dark text-white">
+    <div class="container-fluid px-2 my-2">
+      <a class="navbar-brand mx-2" href="/api/auth/index">ACME Inc.
+        <img src='http://localhost:4000/LogoACME.jpg' width="50" height="30" class="d-inline-block align-text-top"></a>
+      <div class="me-auto d-block" id="navbarTogglerDemo02">
+        <ul class="navbar-nav my-auto list-group list-group-horizontal">
+          <li class="nav-item mx-4 active">
+            <a class="nav-link" aria-current="page" href="/api/auth/index"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="nav-item mx-4">
+            <a class="nav-link" href="/api/auth/historial"><i class="fa fa-list-ul" aria-hidden="true"></i> Product List</a>
+          </li>
+          <li class="nav-item mx-4">
+            <a class="nav-link" href="/api/webchat"><i class="fa fa-comments" aria-hidden="true"></i> WebChat</a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex">
+          <% if(cart === null) { %>
+            <a class="btn btn-warning ms-4 disabled" style="width: 100px;" type="submit" href="#"><i class="fa fa-shopping-cart"></i> Cart</a>
+          <% } else if(cart && cart.items.length === 0) { %>
+            <a class="btn btn-warning ms-4 position-relative" style="width: 100px;" type="submit" href="/api/carts/<%=cart._id%>"><i class="fa fa-shopping-cart"></i> Cart <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+            </span></a>
+          <% } else { %>
+              <a class="btn btn-warning ms-4 position-relative" style="width: 100px;" type="submit" href="/api/carts/<%=cart._id%>"><i class="fa fa-shopping-cart"></i> Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <%= cart.items.length %></span></a>
+          <% } %>
+            <a class="btn btn-light ms-4" style="width: 100px;" type="submit" href="/api/auth/logout"><i class="fa fa-sign-out"></i> LogOut</a>
+      </div>
+    </div>
+  </nav>
+</header>

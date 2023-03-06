@@ -1,0 +1,40 @@
+<div class="form-group col-6 mx-auto my-2 w-50 border p-3 bg-secondary bg-gradient text-white bg-opacity-75">
+    <form action="/api/usuarios/newUser" method="post"> 
+        <fieldset>
+            <label for="username">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+            <br>
+            <label for="lastName">LastName</label>
+            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name" required>
+            <br>
+            <label for="email">Em@il</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Em@il" required>
+            <br>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+            <br>
+            <label for="avatar">Avatar</label>
+            <input type="text" name="avatar" id="avatar" class="form-control" placeholder="url avatar">
+            <br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+            <br>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="status" checked disabled>
+              <label class="form-check-label" for="status">Active</label>
+            </div>
+            <br>
+
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="admin" checked disabled>
+              <label class="form-check-label" for="status">User</label>
+            </div>
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mx-auto" id="btnNewUser" >Add New User <i class="fa fa-user-plus"></i></button>
+                <button type="reset" class="btn btn-danger mx-auto w-25">Reset <i class="fa fa-rotate-left"></i></button>
+              </div>
+        </fieldset>
+    </form>
+</div>

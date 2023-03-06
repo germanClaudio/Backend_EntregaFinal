@@ -1,0 +1,33 @@
+<div class="card mb-3 mx-auto" style="max-width: 740px;">
+    <div class="row g-0 align-items-center">
+        <div class="col-md-4">
+            <img src="<%= producto.picture %>" class="img-fluid rounded p-3" alt="Product Image" width="300px">
+        </div>
+        <div class="col-md-8">
+        <div class="card-body border-start">
+          <h5 class="card-title"><%= producto.name %></h5>
+          <p class="card-text"><%= producto.description %></p>
+          <p class="card-text">USD($)<%= producto.price %></p>
+          <p class="card-text"><small class="text-muted">Stock: <%= producto.stock %></small></p>
+
+          <hr>
+          <form action="/api/carts/add/<%= producto.id %>" method="post">
+            <div class="d-flex justify-content-center">
+                <button type="button" onclick="incrementValue()" class="btn btn-primary me-5 my-2"><i class="fa fa-plus-square"></i></button>
+                    <input class="text-center" style="border:none" type="text" name="quantity" value="1" max="<%= producto.stock %>" size="1" id="number" />
+                    <input type="hidden" name="stock" id="stock" value="<%= producto.stock %>"/>
+                <button type="button" onclick="decrementValue()" class="btn btn-danger ms-5 my-2"><i class="fa fa-minus-square"></i></button>
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                <input type="hidden" name="productId" id="id" value="<%= producto.id %>"/>
+                <button type="submit" class="btn btn-success px-auto my-1">Add to Cart <i class="fa fa-cart-plus"></i></button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+<div class="d-flex justify-content-center my-1">
+    <a class="btn btn-primary mx-auto my-2" href="/api/auth/index"><i class="fa fa-shopping-basket"></i> Keep Buying </a>
+</div>

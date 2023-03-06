@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <div class="d-block mx-auto my-5 w-100 text-center alert alert-success h5" style="padding-top: 50px;"
+        role="alert" id="mostrarUserName">Bienvenido <%= userInfo.name %> <%= userInfo.lastName %> 
+         - Es tu visita #<%= visits %>
+        <img class="img-fluid rounded-circle float-end me-5 mt-0" alt="Avatar not found" src="<%= userInfo.avatar %>" width="70px" height="70px">
+    </div>
+    <br>
+    <% if( userInfo.admin ){ %>
+    <div class="d-block mx-auto my-5 w-75 text-center">
+        <a href="/api/productos" class="btn btn-primary mx-auto my-3 w-25">Manage Products <i class="fa fa-th"></i></a><br>
+        <a href="/api/usuarios" class="btn btn-secondary mx-auto my-3 w-25">Manage Users <i class="fa fa-users"></i></a><br>
+        <a href="/api/carts/" class="btn btn-dark mx-auto my-3 w-25">Manage Order <i class="fa fa-check-circle"></i></a><br>
+        <a href="/info/system" class="btn btn-warning mx-auto my-3 w-25">Info System <i class="fa fa-info"></i></a><br>
+    </div>
+    <br>
+    <% } %>
+    <!-- <div class="d-block mx-auto my-4 text-center bg-primary-light">
+        <%- include('../partials/formularioSearchProduct'); %>    
+        <%- include('../partials/dataProductSearch'); %>
+    </div>
+        <br> -->
+        <h3 class="d-block mx-auto my-2 text-center">Product List</h3>
+        <div class="d-block mx-auto mb-3 text-center w-75">
+            <%- include('../partials/dataProductList'); %>
+        </div>
+        <br>
+            <%- include('../partials/footer'); %>
+
+        <!--    scripts     -->
+        <script type="text/javascript" src="../../index.js"></script>
+</body>
+</html>

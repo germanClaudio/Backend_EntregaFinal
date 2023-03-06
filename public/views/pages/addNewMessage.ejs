@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+        <%- include('../partials/header'); %>
+
+        <%- include('../partials/userBanner'); %>
+    <br>
+    <div class="d-block mx-auto my-2 w-75 text-center alert alert-secondary h5" role="alert" id="">
+        <%= userInfo.name %>, chatea con el Admin y con otros usuarios de la plataforma
+    </div>
+        <%- include('../partials/formularioChat'); %>
+    <br>
+        <%- include('../partials/dataMsg'); %>
+    <br>
+    <div class="d-block mx-auto my-4 pb-5 text-center">
+        <a class="btn btn-primary my-2" href="/api/auth/index"><i class="fa fa-home" aria-hidden="true"></i> Back to Home</a>
+    </div>
+           
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+<!--    scripts     -->
+<script type="text/javascript" src="../../../mensajes.js"></script>
+
+</body>
+
+</html>

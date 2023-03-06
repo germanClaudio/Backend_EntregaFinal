@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+        <%- include('../partials/userBanner'); %>
+    <br>    
+    <h3 class="d-block mx-auto my-2 text-center">Product Details <%= producto.name %></h3>
+    <br>
+        <%- include('../partials/dataProductCard'); %>
+    <br>
+        <%- include('../partials/footer'); %>
+
+        <!--    scripts     -->
+        <script type="text/javascript" src="../../../itemDetails.js"></script>
+                    
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<div class="form-group col-4 mx-auto mt-3 mb-0 w-50 border p-5 bg-warning bg-gradient text-dark">
+    <form class="form" onsubmit="return addMessage(this)">
+        <fieldset>
+            <h4 class="d-block mx-auto mb-2 text-center">WebSocket Chat</h4>
+                            
+                    <input class="form-control" type="hidden" name="email" id="author"
+                    value="<%= userInfo.email %>"></input>
+             
+                    <input class="form-control" type="hidden" name="name" id="name"
+                    value="<%= userInfo.name %>"></input>
+
+                    <input class="form-control" type="hidden" name="lastName" id="lastName"
+                    value="<%= userInfo.lastName %>"></input>
+              
+                    <input class="form-control" type="hidden" name="alias" id="alias"
+                    value="<%= userInfo.username %>"></input>
+              
+                    <input class="form-control" type="hidden" name="avatar" id="avatar"
+                    value="<%= userInfo.avatar %>"></input>
+
+            <div class="my-3 mx-auto"> 
+                <label for="text" class="form-label">Send a message...</label> 
+                <input class="form-control" type="text" name="text" id="text"
+                    placeholder="Put something nice here" required><br>
+                <button class="btn btn-primary ms-3 text-nowrap text-center" name="botonMensaje" id="botonMensaje">Send it <i
+                        class="fa fa-paper-plane"></i></button>
+            </div>
+</div>
+</fieldset>
+</form>
+</div>

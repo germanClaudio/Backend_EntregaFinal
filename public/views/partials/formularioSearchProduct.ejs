@@ -1,0 +1,18 @@
+<div class="form-group col-10 mx-auto my-2 w-75 border p-3 bg-light bg-gradient text-dark bg-opacity-75">
+    <form onsubmit="return showOneProduct(this)">
+        <fieldset>
+            <h5 class="d-block mx-auto my-1 text-center">Search Product by Name or Code</h5>
+            <div class="row my-2">
+                <div class="col">
+                    <label for="nameSearch">Title or Code</label>
+                    <input type="text" name="nameSearch" id="nameSearch" class="form-control" placeholder="Title or Code Product" required>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center my-2">
+                <button type="submit" class="btn btn-primary mx-auto w-25">Search Product <i class="fa fa-search"></i></button>
+                <button type="reset" class="btn btn-danger mx-auto w-25">Reset <i class="fa fa-rotate-left"></i></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

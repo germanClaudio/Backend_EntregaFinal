@@ -1,0 +1,31 @@
+[{
+  "id": 1,
+  "timestamp": "27/01/2023, 12:57:57",
+  "name": "Perfume Cariocas",
+  "description": "Marca Pepsico - 100ml",
+  "price": 35800,
+  "picture": "http://localhost:4000/Perfume_2.jpg",
+  "code": "AP190",
+  "stock": 13,
+  "category": "Perfumes"
+},{
+  "id": 2,
+  "timestamp": "27/01/2023, 15:42:15",
+  "name": "Perfume Los Haroldos",
+  "description": "Marca Avon - 80ml",
+  "price": 30250,
+  "picture": "http://localhost:4000/Perfume_3.jpg",
+  "code": "AR236",
+  "stock": 29,
+  "category": "Perfumes"
+},{
+  "id": 3,
+  "timestamp": "27/01/2023, 13:44:01",
+  "name": "Perfume Barcelona",
+  "description": "Marca Messi - 75ml",
+  "price": 48900,
+  "picture": "http://localhost:4000/Perfume_1.jpg",
+  "code": "WS559",
+  "stock": 15,
+  "category": "Perfumes"
+}]

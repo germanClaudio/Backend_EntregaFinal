@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "timestamp": "30/01/2023, 10:11:12",
+    "name": "Perfume Cariocas",
+    "description": "Marca Pepsico - 100ml",
+    "price": 35800,
+    "picture": "http://localhost:4000/Perfume_2.jpg",
+    "code": "AP190",
+    "category": "Perfumes",
+    "stock": 13
+  },
+  {
+    "id": 2,
+    "timestamp": "30/01/2023, 10:11:12",
+    "name": "Perfume Los Haroldos",
+    "description": "Marca Avon - 80ml",
+    "price": 30250,
+    "picture": "http://localhost:4000/Perfume_3.jpg",
+    "code": "AR236",
+    "category": "Perfumes",
+    "stock": 29
+  },
+  {
+    "id": 3,
+    "timestamp": "30/01/2023, 10:11:12",
+    "name": "Perfume Barcelona",
+    "description": "Marca Messi - 75ml",
+    "price": 48900,
+    "picture": "http://localhost:4000/Perfume_1.jpg",
+    "code": "WS559",
+    "category": "Perfumes",
+    "stock": 15
+  },
+  {
+    "id": 4,
+    "timestamp": "30/01/2023, 10:11:12",
+    "name": "Producto 7",
+    "description": "Perfume VII",
+    "price": 700,
+    "picture": "https://m.media-amazon.com/images/I/51XS20NbJnL._AC_UL320_.jpg",
+    "stock": 7,
+    "code": "AA07",
+    "category": "Perfumes"
+  },
+  {
+    "id": 5,
+    "timestamp": "30/01/2023, 10:11:12",
+    "name": "Producto 7",
+    "description": "Perfume VII",
+    "price": 700,
+    "picture": "https://m.media-amazon.com/images/I/51XS20NbJnL._AC_UL320_.jpg",
+    "stock": 7,
+    "code": "AA07",
+    "category": "Perfumes"
+  }
+]

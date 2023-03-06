@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/headerLogin'); %>
+    </header>
+    <%- include('../partials/userBanner'); %>
+    <br>
+    <div class="d-block mx-auto my-2 text-center">
+        <h3 class="d-block mx-auto my-2 text-center"><i class="fa fa-meh-o fa-1x" aria-hidden="true"></i> Sorry. Your Session ended or You're not Allowed!!</h3>
+        <br>
+        <h3 class="d-block mx-auto my-2 text-center">Call your Admin... <i class="fa fa-phone fa-1x" aria-hidden="true"></i></h3>
+    </div>
+    <br>
+    <div class="d-block mx-auto my-3 text-center">
+        <a class="btn btn-primary mx-auto my-2" href="/api/auth/login"> Back to Login <i class="fa fa-arrow-left"></i></a>
+    </div>
+    <br>
+    <%- include('../partials/footer'); %>
+        <!--    scripts     -->
+        <script type="text/javascript" src="../../../userDetail.js"></script>
+                    
+</body>
+
+</html>

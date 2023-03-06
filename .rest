@@ -1,0 +1,88 @@
+### login post
+POST http://localhost:4000/api/auth/login HTTP/1.1
+Content-type: application/json
+
+{
+    "username": "Federico",
+    "password": "123456",
+    "admin": "true"
+}
+
+###
+POST http://localhost:4000/api/auth/register HTTP/1.1
+Content-type: application/json
+
+{
+    "username": "Puma",
+    "password": "1234",
+    "admin": "true"
+}
+
+###
+GET http://localhost:4000/api/usuarios/63c5560cfa44c13e1bb5006b
+
+###
+GET http://localhost:4000/api/productos HTTP/1.1
+Content-Type: application/json
+
+
+###
+GET http://localhost:4000/api/productos/635fd425d284f5279602c78d HTTP/1.1
+
+###
+GET http://localhost:4000/api/productos/delete/63dbf6afeda207ef7002110a HTTP/1.1
+
+###
+DELETE http://localhost:4000/api/productos HTTP/1.1
+
+###
+GET http://localhost:4000/api/auth/logout HTTP/1.1
+
+
+###
+POST http://localhost:4000/api/productos HTTP/1.1
+Content-Type: application/json
+
+{
+  "timestamp": "",
+  "name": "Producto 8",
+  "description": "Perfume VIII",
+  "price": 800,
+  "picture": "https://m.media-amazon.com/images/I/51XS20NbJnL._AC_UL320_.jpg",
+  "stock": 8,
+  "code": "AA88",
+  "category": "Perfumes"
+}
+
+
+###
+POST http://localhost:4000/api/productos/63e642603b7c91488743b228 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Producto 888",
+  "description": "Perfume XC",
+  "price": 34000,
+  "picture": "https://m.media-amazon.com/images/I/51XS20NbJnL._AC_UL333_.jpg",
+  "stock": 25,
+  "code": "AA78",
+  "category": "Ropa"
+}
+
+
+###
+POST http://localhost:4000/api/carts HTTP/1.1
+Content-Type: application/json
+
+{
+  "productId": "63dbf6afeda207ef7002110a",
+  "quantity": 1
+}
+
+
+###
+GET http://localhost:4000/api/carts/63e2a1175e5458c702c90938 HTTP/1.1
+
+
+###
+GET http://localhost:4000/api/carts/empty-cart/63e2a1175e5458c702c90938 HTTP/1.1
