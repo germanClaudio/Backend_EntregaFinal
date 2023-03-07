@@ -373,22 +373,22 @@ class CartsController {
                 createInvoice(invoice, pathPdfFile)
                 
                 ////////////// phone text message to Administrator //////////////////////
-                const accountSid = process.env.TWILIO_ACCOUNTSID;
-                const authToken = process.env.TWILIO_AUTH_TOKEN;
-                const client = require("twilio")(accountSid, authToken)
+                // const accountSid = process.env.TWILIO_ACCOUNTSID;
+                // const authToken = process.env.TWILIO_AUTH_TOKEN;
+                // const client = require("twilio")(accountSid, authToken)
 
-                ;(async () => {
-                    try {
-                        const message = await client.messages.create({
-                            body: `El usuario ${usuarios.name}, ${usuarios.lastName}, realizó la compra exitosamente!`,
-                            from: process.env.PHONE_SENDER, // '+14094496870',
-                            to: process.env.PHONE_RECEIVER
-                        })
+                // ;(async () => {
+                //     try {
+                //         const message = await client.messages.create({
+                //             body: `El usuario ${usuarios.name}, ${usuarios.lastName}, realizó la compra exitosamente!`,
+                //             from: process.env.PHONE_SENDER, // '+14094496870',
+                //             to: process.env.PHONE_RECEIVER
+                //         })
 
-                    } catch (error) {
-                        logger.error(error)
-                    }
-                })()
+                //     } catch (error) {
+                //         logger.error(error)
+                //     }
+                // })()
                 
                 //////////////////// gmail to Administrator //////////////////////
                 const { createTransport } = require('nodemailer')

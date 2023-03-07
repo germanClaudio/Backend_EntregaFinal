@@ -91,8 +91,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
             const users = await Usuarios.findOne({username: `${usuario.username}`})
             
             if (users) {
-                return null 
-                //new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
+                return false
             }
 
             if (!username || !password ) {
