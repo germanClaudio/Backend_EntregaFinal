@@ -9,9 +9,8 @@ const { authUserMiddleware } = require('../middlewares/authUser.middleware.js')
 const { sessionPostLogin } = require('../controllers/session.controllers.js')
 
 const { generateToken } = require('../utils/generateToken')
-// const logger = require('../utils/winston')
 
-const serverMongoDB = require('../usuarios/userMongoDB')  //../daos/usuarios/UsuariosDaoMongoDB.js
+const serverMongoDB = require('../usuarios/userMongoDB')
 const constructor = serverMongoDB.ServerMongoDB
 const server = new constructor()
 
@@ -21,8 +20,6 @@ const users = new getUsers()
 
 const GetCarts = require('../daos/carritos/CarritosDaoMongoDB.js')
 const carts = new GetCarts()
-
-const bCrypt = require('bcrypt');
 
 //_______________________________ login _____________________________________ //
 authRouter.get('/login', (req, res) => { // lleva la vista del formulario de login

@@ -183,7 +183,7 @@ class UsersController {
                 }
                 else if (usuario && userInfo.status ) {
                 const access_token = generateToken(usuario)
-                //const fail = false
+            
                 req.session.admin = true
                 req.session.username = userInfo.username
                 

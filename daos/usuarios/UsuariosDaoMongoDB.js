@@ -124,24 +124,24 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                     logger.info('User created: ' + newUser)
                     
                     //////////////////// phone text message //////////////////////
-                    const accountSid = process.env.TWILIO_ACCOUNTSID;
-                    const authToken = process.env.TWILIO_AUTH_TOKEN;
-                    const fromPhone = process.env.PHONE_SENDER;
-                    const toPhone = process.env.PHONE_RECEIVER;
-                    const client = require("twilio")(accountSid, authToken);
+                    // const accountSid = process.env.TWILIO_ACCOUNTSID;
+                    // const authToken = process.env.TWILIO_AUTH_TOKEN;
+                    // const fromPhone = process.env.PHONE_SENDER;
+                    // const toPhone = process.env.PHONE_RECEIVER;
+                    // const client = require("twilio")(accountSid, authToken);
                     
-                    ;(async () => {
-                        try {
-                            const message = await client.messages.create({
-                                body: `El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente!`,
-                                from: fromPhone, 
-                                to: toPhone
-                            })
-                            logger.info(message)
-                        } catch (error) {
-                            logger.error(error)
-                        }
-                    })()
+                    // ;(async () => {
+                    //     try {
+                    //         const message = await client.messages.create({
+                    //             body: `El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente!`,
+                    //             from: fromPhone, 
+                    //             to: toPhone
+                    //         })
+                    //         logger.info(message)
+                    //     } catch (error) {
+                    //         logger.error(error)
+                    //     }
+                    // })()
                     
                     //////////////////// gmail to Administrator //////////////////////
                     const { createTransport } = require('nodemailer')
@@ -167,7 +167,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                         html: `<h3 style="color: green;">El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente en la base de datos!</h3>`,
                         attachments: [
                             {
-                                path: `${nuevoUsuario.avatar}`//,'https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png'
+                                path: `${nuevoUsuario.avatar}`
                             }
                         ]
                     }
@@ -232,24 +232,24 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                     logger.info('User Registrated: ' + newUser)
                     
                     // //////////////////// phone text message //////////////////////
-                    const accountSid = process.env.TWILIO_ACCOUNTSID;
-                    const authToken = process.env.TWILIO_AUTH_TOKEN;
-                    const fromPhone = process.env.PHONE_SENDER;
-                    const toPhone = process.env.PHONE_RECEIVER;
-                    const client = require("twilio")(accountSid, authToken);
+                    // const accountSid = process.env.TWILIO_ACCOUNTSID;
+                    // const authToken = process.env.TWILIO_AUTH_TOKEN;
+                    // const fromPhone = process.env.PHONE_SENDER;
+                    // const toPhone = process.env.PHONE_RECEIVER;
+                    // const client = require("twilio")(accountSid, authToken);
                     
-                    ;(async () => {
-                        try {
-                            const message = await client.messages.create({
-                                body: `El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente!`,
-                                from: fromPhone, 
-                                to: toPhone
-                            })
-                            logger.info(message)
-                        } catch (error) {
-                            logger.error(error)
-                        }
-                    })()
+                    // ;(async () => {
+                    //     try {
+                    //         const message = await client.messages.create({
+                    //             body: `El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente!`,
+                    //             from: fromPhone, 
+                    //             to: toPhone
+                    //         })
+                    //         logger.info(message)
+                    //     } catch (error) {
+                    //         logger.error(error)
+                    //     }
+                    // })()
                     
                     //////////////////// gmail to Administrator //////////////////////
                     const { createTransport } = require('nodemailer')
@@ -275,7 +275,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                         html: `<h3 style="color: green;">El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente en la base de datos!</h3>`,
                         attachments: [
                             {
-                                path: 'https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png'
+                                path: `${nuevoUsuario.avatar}`
                             }
                         ]
                     }
