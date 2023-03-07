@@ -12,11 +12,11 @@
     <div class="container mt-5 mx-auto">
         <h3 class="d-block alert alert-danfer mx-auto my-3 text-center">Eyyy!!...<strong><%= userInfo.name %></strong>
             <br>You are Logged Out!!!<br>
-            We'll miss you <%= username %> </h3>
+            We'll miss you <%= username %> <i class="fa fa-frown-o" aria-hidden="true"></i></h3>
     </div>
     <div class="alert alert-dark mx-auto my-4 text-center w-25">
-        <a href="/api/auth/login" class="btn btn-success mx-auto my-3">Go back to Login</a><br>or<br>
-        <a href="/api/auth/register" class="btn btn-primary mx-auto my-3">Register</a>
+        <a href="/api/auth/login" class="btn btn-success mx-auto my-3">Go back to Login <i class="fa fa-sign-in" aria-hidden="true"></i></a><br>or<br>
+        <a href="/api/auth/register" class="btn btn-primary mx-auto my-3">Register <i class="fa fa-user-plus" aria-hidden="true"></i></a>
     </div>
     <br>
     <%- include('../partials/footer'); %>

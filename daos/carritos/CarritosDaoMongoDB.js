@@ -79,7 +79,12 @@ class CarritosDaoMongoDB extends ContenedorMongoDB {
   async getCartByUserId(id) {
     try {
       const cart = await Carritos.findOne({ userId: `${id}` })
-      return cart
+      if (cart) {
+        return cart
+      } else {
+        return null
+      }
+
     } catch (error) {
       logger.error("Error MongoDB getCartByUserId: ", error)
     }

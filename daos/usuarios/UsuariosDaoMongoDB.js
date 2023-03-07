@@ -54,15 +54,15 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                 const user = await Usuarios.findOne( { username: `${username}` })
                 
                  if ( user === [] || user === undefined || user === null) {
-                    return new Error (`El Usuario no existe con el username: ${username}`)
+                    return null
                  } else {
                     return user    
                  }
             } catch (error) {
-                logger.error('aca esta el error, no entra a Mongo: ', error)
+                logger.error('Aca esta el error: ', error)
             }
         } else {
-            return new Error (`El Usuario no existe con este username: ${username}!`)
+            return null
         }
     }
     
@@ -90,8 +90,8 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
             username = username.replace(/[!@#$%^&*]/g, "")
 
             const users = await Usuarios.findOne({username: `${usuario.username}`})
-
-            if(users) {
+            
+            if (users) {
                 return new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
             }
 
@@ -167,7 +167,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                         html: `<h3 style="color: green;">El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente en la base de datos!</h3>`,
                         attachments: [
                             {
-                                path: 'https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png'
+                                path: `${nuevoUsuario.avatar}`//,'https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png'
                             }
                         ]
                     }
@@ -189,6 +189,117 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
         } else {
             return new Error (`No se pudo crear el Usuario!`)
         }
+    }
+
+    async registerNewUser(usuario) {
+        if (usuario) {
+            let username = usuario.username || "";
+            let password = usuario.password || "";
+            username = username.replace(/[!@#$%^&*]/g, "")
+
+            const users = await Usuarios.findOne({username: `${usuario.username}`})
+           
+            if(users) {
+                return new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
+            }
+
+            if (!username || !password ) {
+                process.exit(1)
+            } else {
+                try {
+                    function createHash(password) {
+                        return bCrypt.hashSync(
+                                  password,
+                                  bCrypt.genSaltSync(10),
+                                  null);
+                    }
+                    password = createHash(password)
+        
+                    const nuevoUsuario = { 
+                        name: usuario.name,
+                        lastName: usuario.lastName,
+                        email: usuario.email,
+                        username: username,
+                        avatar: usuario.avatar,
+                        password: password,
+                        status: true,
+                        admin: false,
+                        timestamp: now,
+                    }             
+
+                    const newUser = new Usuarios(nuevoUsuario)
+                    await newUser.save()
+                    logger.info('User Registrated: ' + newUser)
+                    
+                    // //////////////////// phone text message //////////////////////
+                    const accountSid = process.env.TWILIO_ACCOUNTSID;
+                    const authToken = process.env.TWILIO_AUTH_TOKEN;
+                    const fromPhone = process.env.PHONE_SENDER;
+                    const toPhone = process.env.PHONE_RECEIVER;
+                    const client = require("twilio")(accountSid, authToken);
+                    
+                    ;(async () => {
+                        try {
+                            const message = await client.messages.create({
+                                body: `El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente!`,
+                                from: fromPhone, 
+                                to: toPhone
+                            })
+                            logger.info(message)
+                        } catch (error) {
+                            logger.error(error)
+                        }
+                    })()
+                    
+                    //////////////////// gmail to Administrator //////////////////////
+                    const { createTransport } = require('nodemailer')
+                    const TEST_EMAIL = process.env.TEST_EMAIL
+                    const PASS_EMAIL = process.env.PASS_EMAIL
+                    
+                    const transporter = createTransport({
+                        service: 'gmail',
+                        port: 587,
+                        auth: {
+                            user: TEST_EMAIL,
+                            pass: PASS_EMAIL
+                        },
+                        tls: {
+                            rejectUnauthorized: false
+                        }
+                    })
+                    
+                    const mailOptions = {
+                        from: 'Servidor NodeJS - @Gmail - Ecommerce - German Montalbetti (C)2023',
+                        to: TEST_EMAIL,
+                        subject: 'Mail nuevo Registro Usuario desde NodeJS - @Gmail - Ecommerce - German Montalbetti (C)2023',
+                        html: `<h3 style="color: green;">El usuario ${newUser.name} ${newUser.lastName}, se registro exitosamente en la base de datos!</h3>`,
+                        attachments: [
+                            {
+                                path: 'https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png'
+                            }
+                        ]
+                    }
+                    
+                    ;(async () => {
+                        try {
+                            const info = await transporter.sendMail(mailOptions)
+                            logger.info(info)
+                        } catch (err) {
+                            logger.error(err)
+                        }
+                    })()
+
+                    return newUser
+
+                } catch (error) {
+                    logger.error(error)
+                    return new Error (`No se pudo crear el Usuario!`)
+                }
+            }   
+        } else {
+            return new Error (`No se pudo crear el Usuario!`)
+        }
+
     }
 
     async updateUser(id, user){

@@ -13,28 +13,32 @@
         <h3 class="d-block mx-auto my-3 text-center">Register your User</h3>
         <%- include('../partials/formularioRegister'); %>
     </div>
-    
-    <% if (!flag) { %>
-        <div class="alert alert-success mx-auto mb-5 text-center w-25" id="alert">Registrate!! Es gratis!!</div>
-    <% } else if (!flag || !usuario) { %>    
-        <div class="alert alert-warning mx-auto mb-5 text-center w-25" id="alert">Usuario <strong><%=username%></strong> no existe o<br>Password incorrecto!</div>
+
+    <% if (!flag && !fail) { %>
+        <div class="alert alert-success mx-auto mb-5 text-center w-25" id="alert1">
+            <i class="fa fa-gift" aria-hidden="true"></i> Register!! It's free!!
+        </div>
+    <% } else if (flag && fail) { %>
+        <div class="alert alert-danger mx-auto mb-5 text-center w-25" id="alert2">
+            <i class="fa fa-exclamation-circle fa-1x" aria-hidden="true"></i>
+             Username <strong><%=username%></strong> already exists!<br>Register a new one!
+        </div>
     <% } else { %>
-        <div class="alert alert-warning mx-auto mb-5 text-center w-25" id="alert">User Name <strong><%=username%></strong> ya existe!!<br>Registra uno nuevo!</div>
+        <!-- <div class="alert alert-warning mx-auto my-4 text-center w-25" id="alert3">
+            User <strong><%=username%></strong> successfully registred! 
+            <i class="fa fa-check" aria-hidden="true" style="color:green;"></i>
+        </div> -->
     <% } %>
 
     <div class="alert alert-dark mx-auto mt-5 mb-5 text-center w-25">
-        <a href="/api/auth/github" class="btn btn-success mx-auto my-3">Entrar con github</a><br>
-        <a href="/api/auth/login" class="btn btn-secondary mx-auto my-3">Volver</a>
+        <a href="/api/auth/github" class="btn btn-success mx-auto my-3">Login with Github <i class="fa fa-github" aria-hidden="true"></i></a><br>
+        <a href="/api/auth/login" class="btn btn-secondary mx-auto my-3">Back to Login <i class="fa fa-undo" aria-hidden="true"></i></a>
     </div>
     <br>
     
-
-
     <%- include('../partials/footer') %>
 
     <!--    scripts     -->
-        <script type="text/javascript" src="../../register.js"></script>
-        <script type="text/javascript" src="../../controllers/session.controllers.js"></script>
         
 </body>
 

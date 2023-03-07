@@ -5,6 +5,10 @@ class UserService {
     constructor() {
         this.usuarios = usuariosDao
     }
+
+    async login() {
+        return await this.usuarios.login(username, password)
+    }
     
     // returns all users from DB
     async getAllUsers() {
@@ -27,6 +31,11 @@ class UserService {
     }
     
     // add new user
+    async registerNewUser(user) {
+        return await this.usuarios.registerNewUser(user)
+    }
+
+    // Register new user
     async addNewUser(user) {
         return await this.usuarios.createNewUser(user)
     }

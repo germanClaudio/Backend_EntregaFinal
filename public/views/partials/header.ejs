@@ -17,7 +17,7 @@
         </ul>
       </div>
       <div class="d-flex">
-          <% if(cart === null) { %>
+          <% if(cart === undefined || cart === null) { %>
             <a class="btn btn-warning ms-4 disabled" style="width: 100px;" type="submit" href="#"><i class="fa fa-shopping-cart"></i> Cart</a>
           <% } else if(cart && cart.items.length === 0) { %>
             <a class="btn btn-warning ms-4 position-relative" style="width: 100px;" type="submit" href="/api/carts/<%=cart._id%>"><i class="fa fa-shopping-cart"></i> Cart <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">

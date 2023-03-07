@@ -1,8 +1,7 @@
 const UserService = require("../services/users.service.js")
 const CartsService = require("../services/carts.service.js")
-const bCrypt = require('bcrypt');
+const bCrypt = require('bcrypt')
 const { generateToken } = require('../utils/generateToken')
-const logger = require('../utils/winston')
 
 class UsersController {  
     constructor(){
@@ -58,7 +57,6 @@ class UsersController {
     getUserByUsername = async (req, res) => {
         const { username } = req.params
         const usuario = await this.users.getUserByUsername(username)
-        //let username = res.locals.username
         let userInfo = res.locals.userInfo
 
         const userId = usuario._id // User Id
@@ -84,7 +82,6 @@ class UsersController {
         try {
             if(!usuario) return res.status(404).json({msg: 'Username desconocido o password incorrecto!!'})
             res.status(200).json({ Data: usuario })
-            //res.render('productDetails', { producto })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -95,7 +92,6 @@ class UsersController {
     }
 
     createNewUser = async (req, res) => {
-        
         const usuario = await this.users.addNewUser(req.body)
         let username = res.locals.username
         let userInfo = res.locals.userInfo
@@ -103,10 +99,14 @@ class UsersController {
         const usuarioLog = await this.users.getUserByUsername(username)
         const userId = usuarioLog._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
-        
+
         try {
-            if(!usuario) return res.status(404).json({Msg: 'No se pudo guardar usuario viejita!'})
-            res.render('userDetails', { usuario, username, userInfo, cart })
+            if(!usuarioLog) {
+                res.render('login', { usuario, username, userInfo })
+            }
+            else {
+                res.render('userDetails', { usuario, username, userInfo, cart })
+            } 
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -157,48 +157,58 @@ class UsersController {
         }
     }
 
-    login = async (req, res) => { 
+    login = async (req, res) => {
         try {
             const { username, password } = req.body
             let visits = req.session.visits
+            
             const { flag, fail } = true
             const user = await this.users.getUserByUsername(username)
+            const cart = await this.carts.getCartByUserId(user._id)
             
             function isValidPassword(user, password) {
                 const bCrypto = bCrypt.compareSync(password, user.password)
                 return bCrypto
-               }
+            }
     
             const boolean = isValidPassword(user, password)
                
             if (boolean) {
                 const usuario = await this.users.getUserByUsernameAndPassword(username, user.password)
                 const userInfo = await this.users.getUserByUsername(username)
-                
+
                 if (!usuario) {
                     return res.render('register', { flag })
-                } else {
-                    const access_token = generateToken(usuario)
-                    req.session.admin = true
-                    fail = false
-                    logger.info('usuario loggeado!')
-                    return res.render('index', { userInfo, username, visits, flag, fail })
+
                 }
+                else if (usuario && userInfo.status ) {
+                const access_token = generateToken(usuario)
+                //const fail = false
+                req.session.admin = true
+                req.session.username = userInfo.username
+                
+                return res.render('index', { userInfo, username, visits, cart })
+                
+                } else {
+                    return res.render('notAuthorizated', { userInfo, username, visits, cart })
+                }
+            
             } else {
-                const flag = false
+                const flag = true
                 const fail = true
                 return res.render('login', { flag, fail } )
             }
     
         } catch (error) {
-            const flag = false
-            const fail = true
-            return res.render('login', { flag, fail } )
+            res.status(500).json({
+                status: false,
+                error: error
+            })
         }
      }
 
     // -------------- registra un usuario ------------------------------
-    register = async (req, res) => { 
+    registerNewUser = async (req, res) => { 
         const { name, lastName, email, avatar, username, status, admin } = req.body
         let { password } = req.body
     
@@ -211,10 +221,10 @@ class UsersController {
         
         password = createHash(password)
     
-        const yaExiste = this.users.getUserByUsername(username) 
+        const yaExiste = await this.users.getUserByUsername(username) 
     
-        if (yaExiste === [] ) {
-            return res.render('register', { username , flag: true })
+        if (yaExiste) {
+            return res.render('register', { username , flag: true,  fail: true})
         } else {
             const nuevoUsuario = { 
                 name,
@@ -228,15 +238,14 @@ class UsersController {
             }
             
             //------------------------------
-            this.users.addUser(nuevoUsuario)
+            this.users.registerNewUser(nuevoUsuario)
             //------------------------------
             const access_token = generateToken({
                 username,        
                 admin,         
-                // direccion 
             })
             res.render('login', { username: nuevoUsuario.username, flag: true, fail: false })
-            //res.json( { Success: 'Registro Exitoso con JWT: ', access_token })
+
         }
      }
 }

@@ -13,30 +13,26 @@
         <h3 class="d-block mx-auto my-3 text-center">Login</h3>
         <%- include('../partials/formularioLogin'); %>
     </div>
-    <% if (fail) { %>
-        <div class="alert alert-danger mx-auto my-4 text-center w-25" id="alert1"><strong>Usuario No Registrado o<br>Password Incorrecto!</strong></div>
+    <% if (!flag && !fail) { %>
+        <div class="alert alert-success mx-auto my-4 text-center w-25" id="alert2">Don't have a user? Register now! It's free! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></div>
+        <% } else if (flag && fail) { %>
+            <div class="alert alert-danger mx-auto my-4 text-center w-25" id="alert1">
+                <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> User Doesn't exist or<br>Wrong Password!</strong></div>
     <% } else { %>
-        <div></div>
+        <div class="alert alert-warning mx-auto my-4 text-center w-25" id="alert3">User <strong><%=username%></strong> successfully registred! <i class="fa fa-check" aria-hidden="true" style="color:green;"></i></div>
     <% } %>
 
     <div class="alert alert-dark mx-auto my-4 text-center w-25">
-        <a href="/api/auth/github" class="btn btn-success mx-auto my-3 w-50">Entrar con github</a><br>
-        <a href="/api/auth/register" class="btn btn-primary mx-auto my-3 w-50">Register</a>
+        <a href="/api/auth/github" class="btn btn-success mx-auto my-3 w-50">Login with github <i class="fa fa-github" aria-hidden="true"></i></a><br>
+        <a href="/api/auth/register" class="btn btn-primary mx-auto my-3 w-50">Register <i class="fa fa-user-plus" aria-hidden="true"></i></a>
     </div>
     <br>
 
-    <% if (!flag) { %>
-        <div class="alert alert-success mx-auto my-4 text-center w-25" id="alert3">No tienes usuario? Registrate! Es gratis!!</div>
-    <% } else { %>
-        <div class="alert alert-warning mx-auto my-4 text-center w-25" id="alert4">Usuario <strong><%=username%></strong> registrado con exito!</div
-    <% } %>
     
     
     <%- include('../partials/footer'); %>
         <!--    scripts     -->
         <script type="text/javascript" src="../../login.js"></script>
-        <!-- <script type="text/javascript" src="../../src/routes/session/session.routes.js"></script> -->
-        <!-- <script type="text/javascript" src="../../controllers/session.controllers.js  // ../../../src/routes/session/session.routes.js"></script> -->
 </body>
 
 </html>
