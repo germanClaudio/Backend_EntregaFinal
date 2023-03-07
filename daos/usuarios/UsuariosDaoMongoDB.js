@@ -4,7 +4,6 @@ const Usuarios = require('../../models/usuarios.models.js')
 const logger = require('../../utils/winston.js')
 const now = require('../../utils/formatDate.js')
 
-//const crypto = require('crypto')
 const bCrypt = require('bcrypt');
 
 class UsuariosDaoMongoDB extends ContainerMongoDB {
@@ -54,7 +53,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                 const user = await Usuarios.findOne( { username: `${username}` })
                 
                  if ( user === [] || user === undefined || user === null) {
-                    return null
+                    return false
                  } else {
                     return user    
                  }
@@ -62,7 +61,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                 logger.error('Aca esta el error: ', error)
             }
         } else {
-            return null
+            return logger.error('Aca esta el error(username invalid): ', error)
         }
     }
     
@@ -92,7 +91,8 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
             const users = await Usuarios.findOne({username: `${usuario.username}`})
             
             if (users) {
-                return new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
+                return null 
+                //new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
             }
 
             if (!username || !password ) {
@@ -200,7 +200,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
             const users = await Usuarios.findOne({username: `${usuario.username}`})
            
             if(users) {
-                return new Error (`Ya existe un usuario con ese username: ${usuario.username}!`)
+                return false
             }
 
             if (!username || !password ) {

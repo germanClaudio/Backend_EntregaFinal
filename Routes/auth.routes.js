@@ -10,13 +10,13 @@ const { sessionPostLogin } = require('../controllers/session.controllers.js')
 
 const { generateToken } = require('../utils/generateToken')
 
-const serverMongoDB = require('../usuarios/userMongoDB')
-const constructor = serverMongoDB.ServerMongoDB
-const server = new constructor()
-
 const GetUsers = require('../controllers/usuarios.controller.js')
 const getUsers = GetUsers.UsersController
 const users = new getUsers()
+
+const serverMongoDB = require('../usuarios/userMongoDB')
+const constructor = serverMongoDB.ServerMongoDB
+const server = new constructor()
 
 const GetCarts = require('../daos/carritos/CarritosDaoMongoDB.js')
 const carts = new GetCarts()
@@ -44,7 +44,7 @@ authRouter.get('/historial', checkAuthentication, authUserMiddleware, async (req
         const { flag, fail } = true
         
         if (!user) {
-            return res.render('register', { flag })
+            return res.render('register', { flag, fail })
         } else if ( user.status ) {
             const access_token = generateToken(user)
             req.session.admin = true
@@ -63,7 +63,7 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
    
     let username = res.locals.username
     let userInfo = res.locals.userInfo
-
+    
     try {
         const visits = req.session.visits
         const user = await server.getUserByUsername(username)
@@ -71,7 +71,7 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
         const { flag, fail } = true
 
         if (!user) {
-            return res.render('register', { flag })
+            return res.render('register', { flag, fail })
         } else if ( user.status ) {
             const access_token = generateToken(user)
             const fail = false

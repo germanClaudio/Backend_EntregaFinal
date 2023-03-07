@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Usuarios = require('../models/usuarios.models')
-const logger = require('../utils/winston.js')
 
 class ServerMongoDB {
     constructor() {
@@ -21,15 +20,6 @@ class ServerMongoDB {
         }
     }
 
-    async getUser(){
-        try {
-            const users = await Usuarios.find()
-            logger.info('Usuarios', users)
-        } catch (error) {
-            logger.error(error)
-        }
-    }
-
     async getUserByUsername(username){
         try {
             const user = await Usuarios.findOne( {username: `${username}`} )
@@ -38,21 +28,6 @@ class ServerMongoDB {
             logger.error(error)
         }
     }
-
-    // async getUserByUsernameAndPassword(username, password) { 
-    //     logger.info('Username&pass', username)
-    //     try {
-    //         const user = await Usuarios.findOne( {username: `${username}`, password: `${password}` } )
-            
-    //         if ( user === [] || user === undefined || user === null) {
-    //             return false    
-    //         } else {
-    //             return true
-    //         }
-    //     } catch (error) {
-    //         logger.error(error)
-    //     }
-    // }
 }
 
 module.exports = { ServerMongoDB }

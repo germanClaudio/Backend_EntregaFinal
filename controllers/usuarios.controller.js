@@ -56,9 +56,10 @@ class UsersController {
 
     getUserByUsername = async (req, res) => {
         const { username } = req.params
+        console.log('username............',username)
         const usuario = await this.users.getUserByUsername(username)
         let userInfo = res.locals.userInfo
-
+        console.log('usuario............',userInfo, usuario)
         const userId = usuario._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
         
@@ -102,7 +103,7 @@ class UsersController {
 
         try {
             if(!usuarioLog) {
-                res.render('login', { usuario, username, userInfo })
+                res.render('addNewUser', { usuario, username, userInfo, cart }) //agergar control
             }
             else {
                 res.render('userDetails', { usuario, username, userInfo, cart })
@@ -158,36 +159,35 @@ class UsersController {
     }
 
     login = async (req, res) => {
+        const { username, password } = req.body
+        let visits = req.session.visits
+        let boolean = false
         try {
-            const { username, password } = req.body
-            let visits = req.session.visits
-            
-            const { flag, fail } = true
             const user = await this.users.getUserByUsername(username)
-            const cart = await this.carts.getCartByUserId(user._id)
+            console.log('user', user)
             
-            function isValidPassword(user, password) {
-                const bCrypto = bCrypt.compareSync(password, user.password)
-                return bCrypto
-            }
-    
-            const boolean = isValidPassword(user, password)
-               
+                function isValidPassword(user, password) {
+                    const bCrypto = bCrypt.compareSync(password, user.password)
+                   
+                    return bCrypto
+                }
+            
+            boolean = isValidPassword(user, password)
+            
             if (boolean) {
                 const usuario = await this.users.getUserByUsernameAndPassword(username, user.password)
                 const userInfo = await this.users.getUserByUsername(username)
-
+                
                 if (!usuario) {
-                    return res.render('register', { flag })
-
+                    return res.render('register', { flag: false, fail: false }) 
                 }
                 else if (usuario && userInfo.status ) {
-                const access_token = generateToken(usuario)
-            
-                req.session.admin = true
-                req.session.username = userInfo.username
-                
-                return res.render('index', { userInfo, username, visits, cart })
+                    const access_token = generateToken(usuario)
+                    const cart = await this.carts.getCartByUserId(userInfo._id)
+
+                    req.session.admin = true
+                    req.session.username = userInfo.username    
+                    return res.render('index', { userInfo, username, visits, cart })
                 
                 } else {
                     return res.render('notAuthorizated', { userInfo, username, visits, cart })
@@ -207,47 +207,29 @@ class UsersController {
         }
      }
 
-    // -------------- registra un usuario ------------------------------
+    // -------------- registra un nuevo usuario ------------------------------
     registerNewUser = async (req, res) => { 
-        const { name, lastName, email, avatar, username, status, admin } = req.body
-        let { password } = req.body
-    
-        function createHash(password) {
-            return bCrypt.hashSync(
-                      password,
-                      bCrypt.genSaltSync(10),
-                      null);
-        }
         
-        password = createHash(password)
+        const yaExiste = await this.users.getUserByUsername(req.body.username) 
+        const usuario = await this.users.registerNewUser(req.body)
     
-        const yaExiste = await this.users.getUserByUsername(username) 
-    
-        if (yaExiste) {
-            return res.render('register', { username , flag: true,  fail: true})
-        } else {
-            const nuevoUsuario = { 
-                name,
-                lastName,
-                email,
-                username,
-                avatar,
-                password,
-                status,
-                admin
+        try {
+            if (yaExiste) {
+                const username = yaExiste.username
+                return res.render('register', { username , flag: true,  fail: true})
             }
-            
-            //------------------------------
-            this.users.registerNewUser(nuevoUsuario)
-            //------------------------------
-            const access_token = generateToken({
-                username,        
-                admin,         
+           
+            const username = usuario.username
+            res.render('login', { username, flag: true, fail: false })
+       
+        } catch (error) {
+            res.status(500).json({
+                status: false,
+                msg: 'controllerError - RegisterNewUser',
+                error: error
             })
-            res.render('login', { username: nuevoUsuario.username, flag: true, fail: false })
-
         }
-     }
+    }
 }
 
 module.exports = { UsersController }
