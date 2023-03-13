@@ -38,6 +38,10 @@ const initSocket = (io) => {
             await containerProduct.deleteProductById(producto)
             io.sockets.emit('productsAll', await containerProduct.getAllProducts())//getCotizacionEnDolares())
         })
+
+        socket.on('searchProductoAll', async (name) => {
+          io.sockets.emit('searchProductsAll', await containerProduct.searchProductsAll(name))
+        })
         
     //-------------------------------- Users  ----------------------------------
     socket.on('newUsuario', async (usuario) => {

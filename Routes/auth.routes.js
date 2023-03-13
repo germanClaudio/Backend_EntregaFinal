@@ -91,13 +91,24 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
 
 authRouter.get('/github', passport.authenticate('github', {scope: ['user:email']}))
 
-authRouter.get('/githubcallback', passport.authenticate('github', {
+authRouter.get('/githubcallback', checkAuthentication, authUserMiddleware, passport.authenticate('github', {
 
         failureRedirect: '/api/auth/login'
-        }), (req, res) => {
+        }), async (req, res) => {
             const username = req.user.username
+            //let username = res.locals.username
+            let userInfo = res.locals.userInfo
+
+            const visits = req.session.visits
+            const user = await server.getUserByUsername(username)
+            const cart = await carts.getCartByUserId(user._id)
+            const { flag, fail } = true
+            
+            req.session.admin = true
+           
             if (username != null) {
-                res.render('index', { username } )
+                const fail = false
+                res.render('index', { username, userInfo, visits, flag, fail, cart } )
             }
             if (username == null) {
                 res.redirect('/api/login');

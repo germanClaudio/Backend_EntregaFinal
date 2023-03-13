@@ -61,8 +61,8 @@ const initServer = () => {
     app.use(passport.initialize())
     app.use(passport.session())
 
+    app.use(express.static( __dirname + 'src/images'))
     app.use(express.static('public'))
-    app.use(express.static('src/images'))
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(cors())

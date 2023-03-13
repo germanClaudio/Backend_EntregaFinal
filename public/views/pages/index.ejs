@@ -25,7 +25,14 @@
     <br>
     <% } %>
     <br>
-        <h3 class="d-block mx-auto my-2 text-center">Product List</h3>
+    <div class="d-block mx-auto my-3 text-center bg-primary-light">
+        <%- include('../partials/formularioSearchProduct'); %>    
+        <%- include('../partials/dataProductSearch'); %>
+    </div>
+    <div class="d-block mx-auto mt-5 mb-3 text-center w-75">
+        <h3 class="d-block mx-auto my-4 text-center">Product List</h3>
+    </div>
+    <br>
         <div class="d-block mx-auto mb-3 text-center w-75">
             <%- include('../partials/dataProductList'); %>
         </div>
@@ -34,5 +41,6 @@
 
         <!--    scripts     -->
         <script type="text/javascript" src="../../index.js"></script>
+        <script type="text/javascript" src="../../search.js"></script>
 </body>
 </html>

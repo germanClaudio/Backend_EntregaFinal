@@ -164,8 +164,7 @@ class UsersController {
         let boolean = false
         try {
             const user = await this.users.getUserByUsername(username)
-            console.log('user', user)
-            
+
                 function isValidPassword(user, password) {
                     const bCrypto = bCrypt.compareSync(password, user.password)
                    

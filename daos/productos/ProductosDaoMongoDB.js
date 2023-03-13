@@ -34,6 +34,26 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
         }
     }
 
+    async searchProductsAll(name) {
+        // const options = {
+        //   sort: { name: 1 }
+        // }
+        // console.log('options......... ', options)
+
+        try {
+            const products = await Productos.find({ name: name.name })//, options)
+            
+            if ( products === [] || products === undefined || products === null) {
+                return null
+            } else {
+                return products
+            }    
+        } catch (error) {
+            logger.error("Error MongoDB searched Products: ",error)
+            return new Error ('No hay productos en la DB!')
+        }
+    }
+
     async getProductById(id) {
         if(id){
             try {

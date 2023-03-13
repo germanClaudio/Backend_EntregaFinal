@@ -10,6 +10,11 @@ class ProductService {
     async getAllProducts() {
         return await this.productos.getAllProducts()
     }
+
+    // returns all products from DB according query
+    async searchProductsAll() {
+        return await this.productos.searchProductsAll()
+    }
     
     // returns one product by id
     async getProductById(id) {
