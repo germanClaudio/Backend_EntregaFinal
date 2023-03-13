@@ -37,7 +37,7 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
     async searchProductsAll(name) {
         const query = name.name
         try {
-            const products = await Productos.find( {$or:[ { name: query }, { code: query }, 'name' ] } )
+            const products = await Productos.find( {$or:[ { name: query }, { code: query } ] } ).exec()
             
             if ( products === [] || products === undefined || products === null) {
                 return null

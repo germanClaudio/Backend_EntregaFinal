@@ -66,7 +66,7 @@ const renderProduct = (arrProd) => {
         if(element.stock > 0) {
             return (`<div class="col m-3">
                         <div class="card h-100" style="width: 18rem;">
-                            <img src="${element.picture}" class="card-img-top" alt="Picture not Founded" height="215px" >
+                            <img src="${element.picture}" class="card-img-top px-5 pt-1" alt="Picture not Founded" height="215px" >
                             <div class="card-body">
                                 <h6 class="card-title"><strong>${element.name}</strong></h6>
                                 <p class="card-text">${element.description}<br>
@@ -85,7 +85,7 @@ const renderProduct = (arrProd) => {
         } else {
             return (`<div class="col m-3">
                         <div class="card h-100" style="width: 18rem;">
-                            <img src="${element.picture}" class="card-img-top" alt="Picture not Founded" height="215px" >
+                            <img src="${element.picture}" class="card-img-top px-5 pt-1" alt="Picture not Founded" height="215px" >
                             <div class="card-body">
                                 <h6 class="card-title"><strong>${element.name}</strong></h6>
                                 <p class="card-text">${element.description}<br>
