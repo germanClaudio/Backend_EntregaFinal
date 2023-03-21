@@ -61,7 +61,7 @@ class UsuariosDaoMongoDB extends ContainerMongoDB {
                 logger.error('Aca esta el error: ', error)
             }
         } else {
-            return logger.error('Aca esta el error(username invalid): ', error)
+            return logger.error('Aca esta el error(username invalid)')
         }
     }
     

@@ -42,8 +42,8 @@ class ProductService {
     }
 
     // delete all products
-    deleteAllProducts() {
-        return this.productos.getAllProducts()
+    async deleteAllProducts() {
+        return await this.productos.deleteAllProducts()
     }
 }
 

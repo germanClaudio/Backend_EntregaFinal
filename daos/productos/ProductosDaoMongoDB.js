@@ -45,7 +45,7 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
                 return products
             }    
         } catch (error) {
-            logger.error("Error MongoDB searched Products: ",error)
+            logger.error("Error MongoDB searched Products: ", error)
             return new Error ('No hay productos en la DB!')
         }
     }
@@ -57,14 +57,14 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
                 logger.info('Producto encontrado: ',product)
                 return product
             } catch (error) {
-                logger.error("Error MongoDB getOneProducts: ",error)
+                logger.error("Error MongoDB getOneProductById: ",error)
             }
         } else {
             try {
                 const products = await Productos.find()
                 return products
             } catch (error) {
-                logger.error("Error MongoDB getOneProducts: ",error)
+                logger.error("Error MongoDB getOneProductById: ",error)
             }
         }
     }
@@ -170,7 +170,7 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
                     price: itemMongoDB.price,
                     code: itemMongoDB.code,
                     picture: itemMongoDB.picture,
-                    stock: 0,
+                    stock: 0,  //Borrado logico del producto Stock = 0  -----
                     timestamp: now,
                     category: itemMongoDB.category
                 }
@@ -182,6 +182,22 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
             }
         } else {
             logger.info('El Producto no existe! ', itemMongoDB)
+        }
+    }
+
+    async deleteAllProducts() {
+        const newStockQuantity = 0  //Borrado logico de todos los productos New Stock = 0  -----
+        const products = await Productos.find()
+        if ( products === [] || products === undefined || products === null) {
+            return new Error ('No hay productos en la DB!')
+        } else {    
+            try {
+                const productsStockUpdated = await Productos.updateMany({}, { $set: { stock: newStockQuantity } }, { new: true })
+                    
+                return productsStockUpdated
+            } catch (error) {
+                logger.error("Error MongoDB deleteAllProduct: ", error)
+            }
         }
     }
     
@@ -198,7 +214,7 @@ class ProductosDaoMongoDB extends ContenedorMongoDB {
                     return false
                 }
             } catch (error) {
-                logger.error("Error MongoDB getOneProduct: ",error)
+                logger.error("Error MongoDB getByNameOrCode: ",error)
             }
         } else {
             return new Error (`No se pudo concretar la busqueda en la DB!`)

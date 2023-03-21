@@ -23,7 +23,10 @@ routerProductos.post('/', checkAuthentication, authProductMiddleware, products.c
 // -------------------  Actualizar Producto por Id ------------------ 
 routerProductos.post('/update/:id', checkAuthentication, authProductMiddleware, products.updateProduct)
 
-// -------------------  Eliminar Producto por Id ------------------ 
+// -------------------  Eliminar Producto por Id (Stock = 0) ------------------ 
 routerProductos.get('/delete/:id', checkAuthentication, authProductMiddleware, products.deleteProductById)
+
+// -------------------  Eliminar todos los Productos (Stock = 0) ------------------ 
+routerProductos.get('/all/delete', checkAuthentication, authProductMiddleware, products.deleteAllProducts)
 
 module.exports = routerProductos

@@ -21,9 +21,9 @@ class ProductsController {
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
-            if(productos.error) return res.status(400).json({msg: 'No hay productos cargados'}) 
-            
+            if(productos.error) return res.status(400).json({msg: 'No hay productos cargados'})
             res.render('addNewProducts', { productos, username, userInfo, cart })
+
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -104,8 +104,10 @@ class ProductsController {
 
     updateProduct = async (req, res) => {
         const id = req.params.id
+        req.body.category ? req.body.category : req.body.categoryHidden
+        
         const producto = req.body
-            
+        
         let username = res.locals.username
         let userInfo = res.locals.userInfo
         
@@ -126,8 +128,7 @@ class ProductsController {
 
     deleteProductById = async (req, res) => {
         const { id } = req.params
-        console.log(id)
-        
+                
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
@@ -147,9 +148,17 @@ class ProductsController {
     }
 
     deleteAllProducts = async (req, res) => {
+        let username = res.locals.username
+        let userInfo = res.locals.userInfo
+
+        const usuarios = await this.users.getUserByUsername(username)
+        const userId = usuarios._id // User Id
+        let cart = await this.carts.getCartByUserId(userId)
+
         try {
-            const deleted = await this.products.deleteAllProducts()
-            res.status(200).json(deleted)
+            const productsDeleted = await this.products.deleteAllProducts()
+            res.render('addNewProducts', { productsDeleted, username, userInfo, cart })
+
         } catch (error) {
             res.status(500).json({
                 status: false,
