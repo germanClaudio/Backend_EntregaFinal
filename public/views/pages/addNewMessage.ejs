@@ -19,6 +19,9 @@
     <br>
     <div class="d-block mx-auto my-4 pb-5 text-center">
         <a class="btn btn-primary my-2" href="/api/auth/index"><i class="fa fa-home" aria-hidden="true"></i> Back to Home</a>
+        <% if( userInfo.admin ){ %>
+            <a class="btn btn-danger my-2 mx-5" href="/api/webchat/allmsg/del"><i class="fa fa-trash" aria-hidden="true"></i> Delete All Messages </a>
+        <% } %>
     </div>
            
     <footer>

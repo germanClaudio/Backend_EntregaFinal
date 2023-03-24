@@ -20,6 +20,7 @@ class MensajesDaoMongoDB extends ContainerMongoDB {
                 return messages
             }else{
                 logger.info('No messages found')
+                return new Error ('No hay mensajes en la DB!')
             }
         } catch (error) {
             logger.error(error)
@@ -86,7 +87,7 @@ class MensajesDaoMongoDB extends ContainerMongoDB {
         if(itemMongoDB) {
             try {
                 const mensaje = await Mensajes.updateMany({}, { $set: { status: false } }, { new: true })
-                    return mensaje
+                return mensaje
             } catch (error) {
                 logger.error("Error MongoDB deleteAllMenssages: ",error)
             }

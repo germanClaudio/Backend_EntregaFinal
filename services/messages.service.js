@@ -11,24 +11,24 @@ class MessageService {
         return await this.messages.getAllMessages()
     }
     
-    // returns one product by id
+    // returns one message by id
     async getMessageById(id) {
         return await this.messages.getMessageById(id)
     }
 
-    // add new product
+    // add new message
     async createNewMessage(message) {
         return await this.messages.createNewMessage(message)
     }
     
-    // delete one product by Id
+    // delete one message by Id
     async deleteMessageById(id) {
         return await this.messages.deleteMessageById(id)
     }
 
-    // delete all products
-    deleteAllProducts() {
-        return this.messages.deleteAllMessages()
+    // delete all messages
+    async deleteAllMessages() {
+        return await this.messages.deleteAllMessages()
     }
 }
 

@@ -17,7 +17,7 @@ function createInvoice(invoice, path) {
 }
 
 	function generateHeader(doc) {
-		doc.image('./src/images/LogoACME.jpg', 50, 45, { width: 50 })
+		doc.image('./public/src/images/LogoACME.jpg', 50, 45, { width: 50 })
 			.fillColor('#444444')
 			.fontSize(18)
 			.text('ACME Inc.', 110, 57)

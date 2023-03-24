@@ -396,8 +396,8 @@ class CartsController {
                     modifiedOn: dateInvoice,
                     invoice_nr: invoiceNumber,
                 }
-
-                const pathPdfFile = `./src/output/Invoice_${invoice.invoice_nr}.pdf`       
+                
+                const pathPdfFile = `./src/output/Invoice_${invoiceNumber}.pdf`
                 const { createInvoice } = require('../utils/createInvoice.js')
                 createInvoice(invoice, pathPdfFile)
                 

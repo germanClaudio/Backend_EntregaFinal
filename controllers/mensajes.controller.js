@@ -154,10 +154,9 @@ class MessagesController {
         let cart = await this.carts.getCartByUserId(userId)
         
         try {
-            const deleted = await this.messages.deleteAllMessages()
-
+            const messageDeleted = await this.messages.deleteAllMessages()
             res.render('addNewMessage', { messageDeleted, username, userInfo, cart, expires })
-            //res.status(200).json(deleted)
+
         } catch (error) {
             res.status(500).json({
                 status: false,
