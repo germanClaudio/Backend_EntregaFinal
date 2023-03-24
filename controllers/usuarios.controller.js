@@ -15,13 +15,17 @@ class UsersController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuario = await this.users.getUserByUsername(username)
         const userId = usuario._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(usuarios.error) return res.status(400).json({msg: 'No hay usuarios cargados!'}) 
-            res.render('addNewUser', { usuarios, username, userInfo, cart })
+            res.render('addNewUser', { usuarios, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -38,13 +42,17 @@ class UsersController {
         let userInfo = res.locals.userInfo
         const usuario = await this.users.getUserById(id)
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const userId = usuario._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(!usuario) return res.status(404).json({msg: 'Usuario no encontrado'})
             
-            res.render('userDetails', { usuario, username, userInfo, cart })
+            res.render('userDetails', { usuario, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -59,6 +67,10 @@ class UsersController {
         
         const usuario = await this.users.getUserByUsername(username)
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         const userId = usuario._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -66,7 +78,7 @@ class UsersController {
         try {
             if(!usuario) return res.status(404).json({msg: 'Usuario no encontrado'})
             
-            res.render('userDetails', { usuario, username, userInfo, cart })
+            res.render('userDetails', { usuario, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -97,16 +109,20 @@ class UsersController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarioLog = await this.users.getUserByUsername(username)
         const userId = usuarioLog._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(!usuarioLog) {
-                res.render('addNewUser', { usuario, username, userInfo, cart }) //agergar control
+                res.render('addNewUser', { usuario, username, userInfo, cart, expires }) //agergar control
             }
             else {
-                res.render('userDetails', { usuario, username, userInfo, cart })
+                res.render('userDetails', { usuario, username, userInfo, cart, expires })
             } 
         } catch (error) {
             res.status(500).json({
@@ -122,6 +138,10 @@ class UsersController {
         let userInfo = res.locals.userInfo
         const userToUpdate = req.body
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarioLog = await this.users.getUserByUsername(username)
         const userId = usuarioLog._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -129,7 +149,7 @@ class UsersController {
         try {
             const userUpdated = await this.users.updateUser(userToUpdate.id, userToUpdate)
             const usuario = await this.users.getUserById(userToUpdate.id)
-            res.render('userDetails', { usuario, userUpdated, username, userInfo, cart })
+            res.render('userDetails', { usuario, userUpdated, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -143,13 +163,17 @@ class UsersController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarioLog = await this.users.getUserByUsername(username)
         const userId = usuarioLog._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             const userDeleted = await this.users.deleteUserById(id)
-            res.render('addNewUser', { usuarios, username, userInfo, cart })
+            res.render('addNewUser', { usuarios, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -161,6 +185,11 @@ class UsersController {
     login = async (req, res) => {
         const { username, password } = req.body
         let visits = req.session.visits
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         let boolean = false
         try {
             const user = await this.users.getUserByUsername(username)
@@ -186,10 +215,10 @@ class UsersController {
                    
                     req.session.admin = true
                     req.session.username = userInfo.username    
-                    return res.render('index', { userInfo, username, visits, cart })
+                    return res.render('index', { userInfo, username, visits, cart, expires })
                 
                 } else {
-                    return res.render('notAuthorizated', { userInfo, username, visits, cart })
+                    return res.render('notAuthorizated', { userInfo, username, visits, cart, expires })
                 }
             
             } else {

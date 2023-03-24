@@ -16,13 +16,17 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(productos.error) return res.status(400).json({msg: 'No hay productos cargados'})
-            res.render('addNewProducts', { productos, username, userInfo, cart })
+            res.render('addNewProducts', { productos, username, userInfo, cart, expires })
 
         } catch (error) {
             res.status(500).json({
@@ -40,6 +44,10 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -47,7 +55,7 @@ class ProductsController {
         try {
             if(!producto) return res.status(404).json({msg: 'Producto no encontrado'})
             
-            res.render('productDetails', { producto, username, userInfo, cart })
+            res.render('productDetails', { producto, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -64,13 +72,17 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(!producto) return res.status(404).json({msg: 'Producto no encontrado'})
-            res.render('itemDetails', { producto, username, userInfo, cart })
+            res.render('itemDetails', { producto, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -86,13 +98,17 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(!producto) return res.status(404).json({Msg: 'Producto no guardado'})
-            res.render('addNewProducts', { producto, username, userInfo, cart })
+            res.render('addNewProducts', { producto, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -110,6 +126,10 @@ class ProductsController {
         
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
@@ -117,7 +137,7 @@ class ProductsController {
 
         try {
             const productUpdated = await this.products.updateProduct(id, producto)
-            res.render('addNewProducts', { productUpdated, username, userInfo, cart})
+            res.render('addNewProducts', { productUpdated, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -132,13 +152,17 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             const productDeleted = await this.products.deleteProductById(req.params.id)
-            res.render('addNewProducts', { productDeleted, username, userInfo, cart })
+            res.render('addNewProducts', { productDeleted, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -151,13 +175,17 @@ class ProductsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             const productsDeleted = await this.products.deleteAllProducts()
-            res.render('addNewProducts', { productsDeleted, username, userInfo, cart })
+            res.render('addNewProducts', { productsDeleted, username, userInfo, cart, expires })
 
         } catch (error) {
             res.status(500).json({

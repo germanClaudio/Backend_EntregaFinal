@@ -80,6 +80,21 @@ class MensajesDaoMongoDB extends ContainerMongoDB {
         }
     }
 
+
+    async deleteAllMessages() {
+        const itemMongoDB = await Mensajes.find()
+        if(itemMongoDB) {
+            try {
+                const mensaje = await Mensajes.updateMany({}, { $set: { status: false } }, { new: true })
+                    return mensaje
+            } catch (error) {
+                logger.error("Error MongoDB deleteAllMenssages: ",error)
+            }
+        } else {
+            logger.info('No hay Mensajes! ', itemMongoDB)
+        }
+    }
+
     async disconnet() {
         await this.disconnection
     }

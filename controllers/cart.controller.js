@@ -41,6 +41,11 @@ class CartsController {
     getCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
 
         try {
@@ -49,7 +54,7 @@ class CartsController {
             const data = await this.carts.getCart(id)
             const arrProducts = await this.carts.getArrProducts(data)
 
-            res.render('cartDetails', { cart, usuarios, username, userInfo, data, arrProducts })
+            res.render('cartDetails', { cart, usuarios, username, userInfo, data, arrProducts, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -62,6 +67,10 @@ class CartsController {
     addItemToCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const { productId } = req.body // Product Id
@@ -112,7 +121,7 @@ class CartsController {
                 }
                 const data = await cart.save()
                 const arrProducts = await this.carts.getArrProducts(data)
-                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts })
+                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts, expires })
             }
         //- if there is no user with a cart...it creates a new cart and then adds the item to the cart that has been created-----
             else {
@@ -134,7 +143,7 @@ class CartsController {
                 
                 let data = await this.carts.addItemToCart(cartData)
                 const arrProducts = await this.carts.getArrProducts(data)
-                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts })
+                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts, expires })
             }
         } catch (err) {
             res.status(400).json({
@@ -149,6 +158,10 @@ class CartsController {
     addQtyToCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const { productId } = req.body // Product Id
@@ -186,7 +199,7 @@ class CartsController {
                 }
                 const data = await cart.save()
                 const arrProducts = await this.carts.getArrProducts(data)
-                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts })
+                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts, expires })
             }
         } catch (err) {
             console.log(err)
@@ -202,6 +215,10 @@ class CartsController {
     removeItemFromCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const { productId } = req.body
@@ -249,7 +266,7 @@ class CartsController {
                 }
                 const data = await cart.save()
                 const arrProducts = await this.carts.getArrProducts(data)
-                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts })
+                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts, expires })
             }
         } catch (err) {
             console.log(err)
@@ -265,6 +282,10 @@ class CartsController {
     deleteItemFromCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const usuarios = await this.users.getUserByUsername(username)
@@ -302,7 +323,7 @@ class CartsController {
                 }
                 const data = await cart.save()
                 const arrProducts = await this.carts.getArrProducts(data)
-                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts })
+                res.render('cartDetails', { data, usuarios, username, userInfo, productDetails, cart, arrProducts, expires })
             }
             
         } catch (err) {
@@ -319,6 +340,10 @@ class CartsController {
     emptyCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const { id } = req.params
@@ -329,7 +354,7 @@ class CartsController {
             cart.subTotal = 0
             let data = await cart.save()
            
-            res.render('cartDetails', { data, usuarios, username, userInfo, cart })
+            res.render('cartDetails', { data, usuarios, username, userInfo, cart, expires })
                     
         } catch (error) {
             res.status(400).json({
@@ -344,6 +369,10 @@ class CartsController {
     genOrderCart = async (req, res) => {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
         
         try {
             const { id } = req.params
@@ -442,7 +471,7 @@ class CartsController {
                     cart.subTotal = 0
                     let data = await cart.save()
 
-                    res.render('orderGenerated', { data, usuarios, username, userInfo, cart, orderGenerated, pathOrder })
+                    res.render('orderGenerated', { data, usuarios, username, userInfo, cart, orderGenerated, pathOrder, expires })
             }
             else {
                 return res.status(400).json({
@@ -465,6 +494,10 @@ class CartsController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         try {
             const usuarios = await this.users.getUserByUsername(username)
             const userId = usuarios._id // User Id
@@ -475,7 +508,7 @@ class CartsController {
             const arrProducts = await this.carts.getArrProducts(data)
             const orders = await this.carts.getAllOrders()
             
-            res.render('orders', { cart, usuarios, username, userInfo, data, orders, arrProducts })
+            res.render('orders', { cart, usuarios, username, userInfo, data, orders, arrProducts, expires })
             
         } catch (error) {
             res.status(500).json({

@@ -31,6 +31,8 @@ const passport = require('passport')
 const { initPassport } = require('./middlewares/passport.js')
 //________________________________________________________________________________ //
 
+const options = require('./options/config.js')
+
 const initServer = () => {    
 
     const app = express()
@@ -51,10 +53,10 @@ const initServer = () => {
         }),
         httpOnly: true,
         cookie: {
-            maxAge: 1000 * 60 * 60 * 2,
+            maxAge: options.sessionTime.expirateTime,
         },
-        resave: true, 
-        saveUninitialized: true
+        resave: false, 
+        saveUninitialized: false
     }))
 
     initPassport()

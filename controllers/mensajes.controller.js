@@ -28,6 +28,10 @@ class MessagesController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -35,7 +39,7 @@ class MessagesController {
         try {
             if(mensajes.error) return res.status(400).json({msg: 'No hay mensajes cargados'}) 
             
-            res.render('addNewMessage', { mensajes, username, userInfo, cart })
+            res.render('addNewMessage', { mensajes, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -52,6 +56,10 @@ class MessagesController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -59,7 +67,7 @@ class MessagesController {
         try {
             if(!mensaje) return res.status(404).json({msg: 'Mensaje no encontrado'})
             
-            res.render('addNewMessage', { mensaje, username, userInfo, cart })
+            res.render('addNewMessage', { mensaje, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -88,13 +96,17 @@ class MessagesController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             if(!mensaje) return res.status(404).json({Msg: 'Mensaje no guardado'})
-            res.render('addNewMessage', { mensaje, username, userInfo, cart })
+            res.render('addNewMessage', { mensaje, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -110,13 +122,17 @@ class MessagesController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
 
         try {
             const messageDeleted = await this.messages.deleteMessageById(req.params.id)
-            res.render('addNewMessage', { messageDeleted, username, userInfo, cart })
+            res.render('addNewMessage', { messageDeleted, username, userInfo, cart, expires })
         } catch (error) {
             res.status(500).json({
                 status: false,
@@ -126,10 +142,22 @@ class MessagesController {
     }
 
     deleteAllMessages = async (req, res) => {
+        let username = res.locals.username
+        let userInfo = res.locals.userInfo
+
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
+        const usuarios = await this.users.getUserByUsername(username)
+        const userId = usuarios._id // User Id
+        let cart = await this.carts.getCartByUserId(userId)
+        
         try {
-            //const deleted = await this.products.deleteAllProducts()
             const deleted = await this.messages.deleteAllMessages()
-            res.status(200).json(deleted)
+
+            res.render('addNewMessage', { messageDeleted, username, userInfo, cart, expires })
+            //res.status(200).json(deleted)
         } catch (error) {
             res.status(500).json({
                 status: false,

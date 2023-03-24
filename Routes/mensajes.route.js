@@ -1,8 +1,8 @@
 const { Router } = require('express')
 const routerMensajes = Router()
-const { authMiddleware } = require('../middlewares/auth.middleware.js')
+//const { authMiddleware } = require('../middlewares/auth.middleware.js')
 const { checkAuthentication } = require('../middlewares/chekAuthentication.js')
-const { authUserMiddleware, authProductMiddleware } = require('../middlewares/authUser.middleware.js')
+const { authUserMiddleware } = require('../middlewares/authUser.middleware.js')
 
 const GetMessages = require('../controllers/mensajes.controller.js')
 const getMessages = GetMessages.MessagesController
@@ -19,5 +19,8 @@ routerMensajes.post('/', checkAuthentication, authUserMiddleware, messages.creat
 
 // -------------------  Eliminar Mensaje por Id ------------------ 
 routerMensajes.get('/delete/:id', checkAuthentication, authUserMiddleware, messages.deleteMessageById)
+
+// -------------------  Eliminar Todos los Mensajes ------------------ 
+routerMensajes.get('/allMsg/delete', checkAuthentication, authUserMiddleware, messages.deleteAllMessages)
 
 module.exports = routerMensajes

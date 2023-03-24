@@ -24,6 +24,10 @@ class InfoController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -44,7 +48,7 @@ class InfoController {
         try {
 
             if(info.error) return res.status(400).json({msg: 'No hay Informacion que mostrar!'}) 
-             res.render('sistema', { infoSystem, username, userInfo, cart })
+             res.render('sistema', { infoSystem, username, userInfo, cart, expires })
            
         } catch (error) {
             res.status(500).json({
@@ -61,6 +65,10 @@ class InfoController {
         let username = res.locals.username
         let userInfo = res.locals.userInfo
 
+        const cookie = req.session.cookie
+        const time = cookie.expires
+        const expires = new Date(time)
+
         const usuarios = await this.users.getUserByUsername(username)
         const userId = usuarios._id // User Id
         let cart = await this.carts.getCartByUserId(userId)
@@ -72,7 +80,7 @@ class InfoController {
         
         if (cant <= maxCount) {
             forked.on('message', (msg) => {
-                res.render('testSystem', { msg , username, userInfo, cart })
+                res.render('testSystem', { msg , username, userInfo, cart, expires })
                 res.end( msg )
             })
             forked.send('start')

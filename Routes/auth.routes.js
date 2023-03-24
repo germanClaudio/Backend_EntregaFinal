@@ -36,6 +36,10 @@ authRouter.get('/historial', checkAuthentication, authUserMiddleware, async (req
     
     let username = res.locals.username
     let userInfo = res.locals.userInfo
+
+    const cookie = req.session.cookie
+    const time = cookie.expires
+    const expires = new Date(time)
     
     try {
         const visits = req.session.visits
@@ -49,7 +53,7 @@ authRouter.get('/historial', checkAuthentication, authUserMiddleware, async (req
             const access_token = generateToken(user)
             req.session.admin = true
             req.session.username = userInfo.username
-            return res.render('historial', { userInfo, username, cart })
+            return res.render('historial', { userInfo, username, cart, expires })
         } else {
             return res.render('notAuthorizated', { userInfo, username, visits, flag, cart})
         }
@@ -63,6 +67,10 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
    
     let username = res.locals.username
     let userInfo = res.locals.userInfo
+
+    const cookie = req.session.cookie
+    const time = cookie.expires
+    const expires = new Date(time)
     
     try {
         const visits = req.session.visits
@@ -77,9 +85,9 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
             const fail = false
             req.session.admin = true
             req.session.username = userInfo.username
-            return res.render('index', { userInfo, username, visits, flag, fail, cart })
+            return res.render('index', { userInfo, username, visits, flag, fail, cart, expires })
         } else {
-            return res.render('notAuthorizated', { userInfo, username, visits, flag, cart})
+            return res.render('notAuthorizated', { userInfo, username, visits, flag, cart, expires})
         }
          
     } catch (error) {
@@ -105,10 +113,14 @@ authRouter.get('/githubcallback', checkAuthentication, authUserMiddleware, passp
             const { flag, fail } = true
             
             req.session.admin = true
+
+            const cookie = req.session.cookie
+            const time = cookie.expires
+            const expires = new Date(time)
            
             if (username != null) {
                 const fail = false
-                res.render('index', { username, userInfo, visits, flag, fail, cart } )
+                res.render('index', { username, userInfo, visits, flag, fail, cart, expires } )
             }
             if (username == null) {
                 res.redirect('/api/login');
