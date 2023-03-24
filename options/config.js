@@ -30,8 +30,14 @@ const options = {
     useNullAsDefault: true
   },
   
-  HOST: process.env.HOST || 'localhost'
+  HOST: process.env.HOST || 'localhost',
 }
+
+  const sessionTime = {
+    expirateTime: 30 * 60 * 1000  //media hora
+  }
+
   module.exports = {
-    options
+    options,
+    sessionTime
   }

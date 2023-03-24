@@ -10,22 +10,66 @@
         <%- include('../partials/header'); %>
     </header>
     <div class="d-block mx-auto my-5 w-100 text-center alert alert-success h5" style="padding-top: 50px;"
-        role="alert" id="mostrarUserName">Bienvenido <%= userInfo.name %> <%= userInfo.lastName %> 
-         - Es tu visita #<%= visits %>
+        role="alert" id="mostrarUserName">Welcome <%= userInfo.name %> <%= userInfo.lastName %> 
+         - Visit #<%= visits %> 
         <img class="img-fluid rounded-circle float-end me-5 mt-0" alt="Avatar not found" src="<%= userInfo.avatar %>" width="70px" height="70px">
     </div>
     <br>
     <% if( userInfo.admin ){ %>
-    <div class="d-block mx-auto my-5 w-75 text-center">
-        <a href="/api/productos" class="btn btn-primary mx-auto my-3 w-25">Manage Products <i class="fa fa-th"></i></a><br>
-        <a href="/api/usuarios" class="btn btn-secondary mx-auto my-3 w-25">Manage Users <i class="fa fa-users"></i></a><br>
-        <a href="/api/carts/" class="btn btn-dark mx-auto my-3 w-25">Manage Order <i class="fa fa-check-circle"></i></a><br>
-        <a href="/info/system" class="btn btn-warning mx-auto my-3 w-25">Info System <i class="fa fa-info"></i></a><br>
+    <div class="container mx-auto mt-3 mb-5 text-center shadow-lg bg-body rounded p-3" width="96vw">
+        <div class="row justify-content-evenly">
+            <div class="col mx-2 py-2">
+                <div class="card bg-primary h-100 py-2" style="width: 13rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Manage Products</h5>
+                      <p class="card-text">Add, update or delete all your products.</p>
+                      <a href="/api/productos" class="btn btn-dark mx-auto my-3 w-100"><i class="fa fa-th fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-2 py-2">
+                <div class="card bg-secondary h-100 py-2" style="width: 13rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Manage Users</h5>
+                      <p class="card-text">Add, update or delete users and admins.</p>
+                      <a href="/api/usuarios" class="btn btn-light mx-auto my-3 w-100"><i class="fa fa-users fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-2 py-2">
+                <div class="card bg-dark text-white h-100 py-2" style="width: 13rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Manage Orders</h5>
+                      <p class="card-text">Check your orders list, shiping and more.</p>
+                      <a href="/api/carts/" class="btn btn-light mx-auto my-3 w-100"><i class="fa fa-check-circle fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-2 py-2">
+                <div class="card bg-warning h-100 py-2" style="width: 13rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Manage WebChat</h5>
+                      <p class="card-text">Check messages form admins and your users.</p>
+                      <a href="/api/webchat/" class="btn btn-dark text-white mx-auto my-3 w-100"><i class="fa fa-comments fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-2 py-2">
+                <div class="card bg-info h-100 py-2" style="width: 13rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Info System</h5>
+                      <p class="card-text">Check the info system, do some tests.</p>
+                      <a href="/info/system" class="btn btn-dark mx-auto my-3 w-100"><i class="fa fa-info-circle fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <br>
+    
     <% } %>
+
     <br>
-    <div class="d-block mx-auto my-3 text-center bg-primary-light">
+    <div class="d-block mx-auto mt-4 my-3 text-center bg-primary-light">
         <%- include('../partials/formularioSearchProduct'); %>    
         <%- include('../partials/dataProductSearch'); %>
     </div>
@@ -37,10 +81,13 @@
             <%- include('../partials/dataProductList'); %>
         </div>
         <br>
+        <footer>
             <%- include('../partials/footer'); %>
+        </footer>
 
         <!--    scripts     -->
         <script type="text/javascript" src="../../index.js"></script>
         <script type="text/javascript" src="../../search.js"></script>
+        <script type="text/javascript" src="../../clock.js"></script>
 </body>
 </html>
