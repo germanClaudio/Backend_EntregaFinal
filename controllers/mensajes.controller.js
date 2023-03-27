@@ -43,7 +43,7 @@ class MessagesController {
         } catch (error) {
             res.status(500).json({
                 status: false,
-                msg: 'controllerError - getAllProducts',
+                msg: 'controllerError - getAllMessages',
                 error: error
             })
         }
@@ -71,7 +71,7 @@ class MessagesController {
         } catch (error) {
             res.status(500).json({
                 status: false,
-                msg: 'controllerError - getProductById',
+                msg: 'controllerError - getMessageById',
                 error: error
             })
         }
@@ -110,7 +110,7 @@ class MessagesController {
         } catch (error) {
             res.status(500).json({
                 status: false,
-                msg: 'controllerError - createNewProducts',
+                msg: 'controllerError - createNewMessage',
                 error: error
             })
         }

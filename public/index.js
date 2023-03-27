@@ -50,7 +50,7 @@ const renderProduct = (arrProd) => {
 
     const html = arrProd.map((element) => {
 
-    if(element.stock >= 3 && element.stock < 6) {
+    if(element.stock >= 1 && element.stock < 6) {
         stock = lastAvailable
         disabled = ''
         color = red

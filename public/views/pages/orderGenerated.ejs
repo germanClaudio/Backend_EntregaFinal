@@ -11,12 +11,15 @@
     </header>
         <%- include('../partials/userBanner'); %>
     <br>
-    <div class="d-block mx-auto my-2 text-center">
+    <div class="d-block mx-auto my-4 text-center">
         <h3 class="d-block mx-auto my-2 text-center">Your P.O. # <%= orderGenerated.invoice_nr %> <br> was succesfully generated!!</h3>
+        <input type="hidden" id="orderNumber" value="<%= orderGenerated.invoice_nr %> ">
     </div>
     <br>
     <div class="d-block mx-auto my-2 text-center">
         <h3 class="d-block mx-auto my-3 text-center">Thanks for your Shopping!! <i class="fa fa-gift fa-1x" aria-hidden="true"></i></h3>
+        <button class="btn btn-success mx-auto my-3" id="download-btn">Download PDF <i class="fa fa-download"></i></button>
+
     </div>
         <div class="d-block mx-auto my-2 text-center">
         <a class="btn btn-primary mx-auto my-3" href="/api/auth/index"> Back to Main <i class="fa fa-home"></i></a>
@@ -29,6 +32,7 @@
         <!--    scripts     -->
         <script type="text/javascript" src="../../../clock.js"></script>
         <script type="text/javascript" src="../../../expiresSession.js"></script>
+        <script type="text/javascript" src="../../../downloadFile.js"></script>
 </body>
 
 </html>
