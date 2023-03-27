@@ -34,7 +34,7 @@ const options = {
 }
 
   const sessionTime = {
-    expirateTime: 15 * 60 * 1000  //15 minutos
+    expirateTime: 30 * 60 * 1000  //media hora
   }
 
   module.exports = {
