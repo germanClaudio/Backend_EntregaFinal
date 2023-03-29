@@ -17,6 +17,7 @@ const routerUsers = require('./Routes/usuarios.route.js')
 const routerProductos = require('./Routes/productos.route.js')
 const routerCarts = require('./Routes/carts.route.js')
 const routerMensajes = require('./Routes/mensajes.route.js')
+const routerOrders = require('./Routes/orders.route.js')
 
 const { infoRouter } = require('./Routes/info.routes.js')
 const { authRouter } = require('./Routes/auth.routes.js')
@@ -77,6 +78,7 @@ const initServer = () => {
     app.use('/api/carts', routerCarts)
     app.use('/info', infoRouter)
     app.use('/api/webchat', routerMensajes)
+    app.use('/api/orders', routerOrders)
          
     ////////////////////////////////////////////////////////
 

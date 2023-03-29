@@ -1,11 +1,13 @@
 const CartsService = require("../services/carts.service.js")
+const OrdersService = require("../services/orders.service.js")
 const ProductsService = require("../services/products.service.js")
 const UserService = require("../services/users.service.js")
 const logger = require('../utils/winston.js')
 const now = require('../utils/formatDate.js')
 
-class CartsController {  
+class OrdersController {  
     constructor(){
+        this.orders = new OrdersService()
         this.carts = new CartsService()
         this.products = new ProductsService()
         this.users = new UserService()
@@ -398,10 +400,8 @@ class CartsController {
                 }
                 
                 const pathPdfFile = `./src/output/Invoice_${invoiceNumber}.pdf`
-                const pathPdfOrderFile =  `./public/src/images/output/Invoice_${invoiceNumber}.pdf`
                 const { createInvoice } = require('../utils/createInvoice.js')
                 createInvoice(invoice, pathPdfFile)
-                createInvoice(invoice, pathPdfOrderFile)
                 
                 ////////////// phone text message to Administrator //////////////////////
                 // const accountSid = process.env.TWILIO_ACCOUNTSID;
@@ -522,4 +522,4 @@ class CartsController {
 
 }
 
-module.exports = { CartsController }
+module.exports = { OrdersController }

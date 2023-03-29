@@ -182,13 +182,19 @@ class UsersController {
         }
     }
 
+
     login = async (req, res) => {
-        const { username, password } = req.body
+        const { username, password, sessionStarted } = req.body
         let visits = req.session.visits
 
         const cookie = req.session.cookie
         const time = cookie.expires
-        const expires = new Date(time)
+        let expires = new Date(time)
+        
+        if (sessionStarted) {
+            req.session.cookie.expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            expires = req.session.cookie.expires
+        }
 
         let boolean = false
         try {
@@ -196,7 +202,6 @@ class UsersController {
 
                 function isValidPassword(user, password) {
                     const bCrypto = bCrypt.compareSync(password, user.password)
-                   
                     return bCrypto
                 }
             
