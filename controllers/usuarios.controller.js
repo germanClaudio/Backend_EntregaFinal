@@ -221,9 +221,9 @@ class UsersController {
                     req.session.admin = true
                     req.session.username = userInfo.username    
                     return res.render('index', { userInfo, username, visits, cart, expires })
-                
-                } else {
-                    return res.render('notAuthorizated', { userInfo, username, visits, cart, expires })
+                }
+                else {
+                    return res.render('notAuthorizated', { userInfo, username, visits, expires })
                 }
             
             } else {
