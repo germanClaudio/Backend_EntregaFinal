@@ -1,4 +1,4 @@
-<div class="form-group col-4 mx-auto my-2 w-25 border p-3 bg-dark bg-gradient text-white bg-opacity-75">
+<div class="form-group col-4 mx-auto my-2 w-25 border p-3 bg-dark .bg-dark.bg-gradient text-white bg-opacity-75 rounded-3 shadow-lg">
     <form action="login" method="post"> 
         <fieldset>
             <div class="d-flex justify-content-center mx-auto">
@@ -8,12 +8,15 @@
             <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
             <br>
             <label for="thumbnail">Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+            <div class="input-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                <button class="btn btn-light text-dark" type="button" id="show-password-btn">Show</button>
+            </div>
             <br>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="sessionStarted" value="checked" id="sessionStarted">
                 <label class="form-check-label" for="sessionStarted">
-                  Keep Seesion Started
+                  Keep Seesion Alive
                 </label>
               </div>
             <br>

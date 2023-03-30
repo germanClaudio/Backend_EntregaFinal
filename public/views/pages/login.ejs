@@ -14,7 +14,7 @@
         <%- include('../partials/formularioLogin'); %>
     </div>
     <% if (!flag && !fail) { %>
-        <div class="alert alert-success mx-auto my-4 text-center w-25" id="alert2">Don't have a user? Register now! It's free! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></div>
+        <div class="alert alert-success mx-auto my-4 text-center w-25" id="alert2">Don't have a user yet?<br>Register now! It's free! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></div>
         <% } else if (flag && fail) { %>
             <div class="alert alert-danger mx-auto my-4 text-center w-25" id="alert1">
                 <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> User Doesn't exist or<br>Wrong Password!</strong></div>
