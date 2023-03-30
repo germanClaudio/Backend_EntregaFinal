@@ -55,7 +55,7 @@ authRouter.get('/historial', checkAuthentication, authUserMiddleware, async (req
             req.session.username = userInfo.username
             return res.render('historial', { userInfo, username, cart, expires })
         } else {
-            return res.render('notAuthorizated', { userInfo, username, visits, flag, cart})
+            return res.render('notAuthorizated', { userInfo, username, visits, flag})
         }
         
     } catch (error) {
@@ -87,7 +87,7 @@ authRouter.get('/index', checkAuthentication, authUserMiddleware ,async (req, re
             req.session.username = userInfo.username
             return res.render('index', { userInfo, username, visits, flag, fail, cart, expires })
         } else {
-            return res.render('notAuthorizated', { userInfo, username, visits, flag, cart, expires})
+            return res.render('notAuthorizated', { userInfo, username, visits, flag, expires})
         }
          
     } catch (error) {
@@ -123,7 +123,7 @@ authRouter.get('/githubcallback', checkAuthentication, authUserMiddleware, passp
                 res.render('index', { username, userInfo, visits, flag, fail, cart, expires } )
             }
             if (username == null) {
-                res.redirect('/api/login');
+                res.redirect('/api/login')
             }
         });
 
